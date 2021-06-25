@@ -1,0 +1,41 @@
+.logo-todopisos{
+    width: 100%;
+}
+.navigation-menu {
+    margin-top: 15px;
+}
+.table {
+    width: 100%;
+}
+
+.navigation-menu table a{
+    text-decoration: none;
+    padding: 10px;
+    color: black;
+    font-family: Montserrat;
+    font-size: 18px;
+}
+
+.navigation-menu table a:hover{
+    text-decoration: none;
+    border: 1px solid #CCCCCC;
+    border-radius: 5px;
+}
+
+/*Welcome*/
+.resume {
+    background-color: #C8C8C8;
+    padding: 20px;
+}
+
+.resume_title {
+    color: #FFFFFF;
+    font-family: Montserrat;
+    font-weight: bold;
+}
+
+.resume_text {
+    color: #000000;
+    font-family: Roboto;
+    font-size: 18px;
+}
