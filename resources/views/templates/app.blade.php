@@ -3,9 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>AdminLTE 3 | Dashboard</title>
+  <title>Dashboard</title>
+
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="stylesheet" href="{{asset('assets/css/website.css')}}">
+
   <!-- Font Awesome -->
   <link rel="stylesheet" href="{{asset('assets/plugins/fontawesome-free/css/all.min.css')}}">
   <!-- Ionicons -->
@@ -26,6 +30,11 @@
   <link rel="stylesheet" href="{{asset('assets/plugins/summernote/summernote-bs4.css')}}">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
+  <!-- jQuery -->
+  <script src="{{asset('assets/js/jquery-3.6.0.min.js')}}"></script>
+  <!-- jQuery UI 1.11.4 -->
+  <script src="{{asset('assets/plugins/jquery-ui/jquery-ui.min.js')}}"></script>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -61,18 +70,45 @@
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           
-          <li class="nav-item">
-            <a href="pages/widgets.html" class="nav-link">
-              <i class="nav-icon fas fa-home"></i>
-              <p>Inicio</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="pages/gallery.html" class="nav-link">
-              <i class="nav-icon far fa-image"></i>
-              <p>Galería</p>
-            </a>
-          </li>
+            <li class="nav-item">
+                <a href="/app/inicio" class="nav-link">
+                    <i class="nav-icon fas fa-home"></i>
+                    <p>Inicio</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="/app/galeria" class="nav-link">
+                    <i class="nav-icon far fa-image"></i>
+                    <p>Galería</p>
+                </a>
+            </li>
+            <li class="nav-item has-treeview">
+                <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-users"></i>
+                <p>
+                    Clientes
+                    <i class="right fas fa-angle-left"></i>
+                </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="/app/clientes" class="nav-link">
+                        <p>Inicio</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/app/clientes/registrar" class="nav-link">
+                        <p>Registrar</p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a href="pages/gallery.html" class="nav-link">
+                    <i class="nav-icon fas fa-sign-out-alt"></i>
+                    <p>Cerrar sesión</p>
+                </a>
+            </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
@@ -102,13 +138,13 @@
 </div>
 <!-- ./wrapper -->
 
-<!-- jQuery -->
-<script src="{{asset('assets/plugins/jquery/jquery.min.js')}}"></script>
-<!-- jQuery UI 1.11.4 -->
-<script src="{{asset('assets/plugins/jquery-ui/jquery-ui.min.js')}}"></script>
+
 <!-- Bootstrap 4 -->
 <script src="{{asset('assets/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 <!-- AdminLTE App -->
 <script src="{{asset('assets/dist/js/adminlte.js')}}"></script>
+
+<!--CORE-->
+<script src="{{ asset('assets/js/clientes/core.js')}}"></script>
 </body>
 </html>

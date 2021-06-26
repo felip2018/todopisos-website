@@ -1,7 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Session;
 
+Use App\Http\Controllers\ClientesController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -35,4 +37,24 @@ Route::get('/iniciar-sesion', function() {
 
 Route::get('/app/inicio', function() {
     return view('application.welcome');
+});
+
+// App::Clientes
+
+Route::get('/app/clientes', function() {
+    return view('application.clientes.inicio');
+});
+
+Route::get('/app/clientes/registrar', function() {
+    return view('application.clientes.registrar');
+});
+
+// App::Galeria
+
+Route::get('/app/galeria', function() {
+    return view('application.galeria.inicio');
+});
+
+Route::get('/app/galeria/registrar', function() {
+    return view('application.galeria.registrar');
 });
