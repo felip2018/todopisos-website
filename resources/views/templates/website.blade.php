@@ -29,11 +29,11 @@
                         <div class="navigation-menu">
                             <table class="table">
                                 <tr>
-                                    <td><a href="">Inicio</a></td>
-                                    <td><a href="">Quienes somos</a></td>
-                                    <td><a href="">Nuestros servicios</a></td>
-                                    <td><a href="">Contáctenos</a></td>
-                                    <td><a href=""><i class="fas fa-sign-in-alt"></i> Iniciar sesión</a></td>
+                                    <td><a href="/">Inicio</a></td>
+                                    <td><a href="/quienes-somos">Quienes somos</a></td>
+                                    <td><a href="/nuestros-servicios">Nuestros servicios</a></td>
+                                    <td><a href="/contactenos">Contáctenos</a></td>
+                                    <td><a href="/iniciar-sesion"><i class="fas fa-sign-in-alt"></i> Iniciar sesión</a></td>
                                 </tr>
                             </table>
                         </div>

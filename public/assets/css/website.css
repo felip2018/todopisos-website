@@ -8,6 +8,10 @@
     width: 100%;
 }
 
+h1,h2,h3,h4,h5{
+    font-family: Montserrat;
+}
+
 .navigation-menu table a{
     text-decoration: none;
     padding: 10px;
@@ -22,10 +26,36 @@
     border-radius: 5px;
 }
 
+.section {
+    padding: 50px 10px 50px 10px;
+}
+
+.section-title {
+    background-color: #000000;
+    color: #FFFFFF;
+    font-family: Montserrat;
+    font-weight: bold;
+    font-size: 20px;
+    text-align: center;
+    padding: 15px; 
+    margin-bottom: 15px;
+}
+
+.section-secondary-title {
+    font-family: Montserrat;
+    font-weight: bold;
+    font-size: 20px;
+    text-align: center;
+    color: #000000;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
 /*Welcome*/
 .resume {
     background-color: #C8C8C8;
     padding: 20px;
+    margin: 10px;
 }
 
 .resume_title {
@@ -38,4 +68,26 @@
     color: #000000;
     font-family: Roboto;
     font-size: 18px;
+}
+
+.lady, .about-img {
+    margin: 10px;
+    height: 100%;
+}
+
+/*Quienes somos*/
+.member-team {
+    padding: 10px;
+}
+
+/*Contáctenos*/
+.table-address {
+    font-family: Roboto;
+    font-size: 15px;
+}
+
+.contact-form-text {
+    font-family: Roboto;
+    font-size: 15px;
+    text-align: center;
 }
