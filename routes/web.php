@@ -32,3 +32,7 @@ Route::get('/contactenos', function() {
 Route::get('/iniciar-sesion', function() {
     return view('site.iniciar-sesion');
 });
+
+Route::get('/app/inicio', function() {
+    return view('application.welcome');
+});

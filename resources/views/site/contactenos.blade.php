@@ -59,7 +59,7 @@
                             </div>
                             <div class="col-xs-12 col-md-12">
                                 <hr>
-                                <button class="btn btn-primary btn-block">
+                                <button type="button" class="btn btn-primary btn-block">
                                     <i class="fas fa-paper-plane"></i> Enviar
                                 </button>
                             </div>
