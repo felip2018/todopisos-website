@@ -128,7 +128,7 @@ class ClientesController extends Controller
             if($insert){
                 $response = [
                     "status" => 200,
-                    "message" => "El cliente ha sido registrado exitosamente"
+                    "message" => "Se ha realizado el registro exitosamente"
                 ];
             }else{
                 $response = [

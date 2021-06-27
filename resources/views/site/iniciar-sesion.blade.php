@@ -28,6 +28,9 @@
                                 <button type="button" class="btn btn-success btn-block">
                                     <i class="fas fa-sign-in-alt"></i> Iniciar sesión
                                 </button>
+                                <a type="button" class="btn btn-info btn-block" href="/registrarse" target="_blank">
+                                    <i class="fas fa-user-tie"></i> Registrarse como cliente
+                                </a>
                             </div>
                         </form>
                     </div>
