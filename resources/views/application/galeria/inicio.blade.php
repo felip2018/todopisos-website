@@ -1,15 +1,18 @@
 @extends('templates.app')
 
+
 @section('content')
-    <div class="row section">
+
+    <div class="row">
         <div class="col-12">
             <div class="section-title">
-                Bienvenid@ a la aplicación
+                Galería
             </div>
         </div>
-        
     </div>
-
-    @yield('productos')
-
+    <script>
+        jQuery(document).ready(function(){
+            
+        })
+    </script>
 @endsection
