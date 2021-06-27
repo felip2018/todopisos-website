@@ -12,7 +12,7 @@
     <div class="row justify-content-center">
         <div class="col-xs-12 col-md-6">
             <p class="contact-form-text">
-                Ingresa los datos del cliente para proceder con el registro.
+                Ingresa los datos solicitados para proceder con el registro.
             </p>
             <div class="col-12 form-container">
                 <div class="row">

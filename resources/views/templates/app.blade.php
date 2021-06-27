@@ -35,8 +35,11 @@
   <script src="{{asset('assets/js/jquery-3.6.0.min.js')}}"></script>
   <!-- jQuery UI 1.11.4 -->
   <script src="{{asset('assets/plugins/jquery-ui/jquery-ui.min.js')}}"></script>
+
+  
+
 </head>
-<body class="hold-transition sidebar-mini layout-fixed">
+<body class="hold-transition sidebar-mini layout-fixed" onload="validateSession()">
 <div class="wrapper">
 
   <!-- Navbar -->
@@ -104,7 +107,7 @@
                 </ul>
             </li>
             <li class="nav-item">
-                <a href="pages/gallery.html" class="nav-link">
+                <a href="#" class="nav-link" onclick="closeSession()">
                     <i class="nav-icon fas fa-sign-out-alt"></i>
                     <p>Cerrar sesión</p>
                 </a>
@@ -166,5 +169,6 @@
 
 <!--CORE-->
 <script src="{{ asset('assets/js/clientes/core.js')}}"></script>
+<script src="{{asset('assets/js/session-core.js')}}"></script>
 </body>
 </html>
