@@ -25,13 +25,13 @@ function getAllCustomers(){
 function renderCustomersList(list) {
     jQuery('#lista-clientes').html('');
     jQuery.each(list, function(index, value){
-        let identificacion = value['tipo_identi'] + " - " + value['num_identi'];
+        let identificacion = value['docType'] + " - " + value['docNum'];
         jQuery('#lista-clientes').append('<tr>'+
             '<td>'+identificacion+'</td>'+
-            '<td>'+value['nombre_completo']+'</td>'+
+            '<td>'+value['fullname']+'</td>'+
             '<td>'+value['email']+'</td>'+
             '<td>'+
-                '<button class="btn btn-primary m-1" title="Ver información" onclick=showCustomerData('+value['num_identi']+')><i class="fa fa-eye"></i></button>'+
+                '<button class="btn btn-primary m-1" title="Ver información" onclick=showCustomerData('+value['docNum']+')><i class="fa fa-eye"></i></button>'+
                 '<button class="btn btn-primary m-1" title="Crear factura"><i class="fa fa-file"></i></button>'+
                 '<button class="btn btn-primary m-1" title="Crear cotización"><i class="fas fa-file-invoice"></i></button>'+
             '</td>'+
@@ -54,11 +54,11 @@ function filterCustomersByDocument(document){
 
 function showCustomerData(document){
     const customersList = JSON.parse(sessionStorage.getItem('listado-clientes'));
-   
-    const customer = customersList.filter((item)=>item.num_identi == document);
-    //console.log('Selected Customer: ', customer);
+    console.log('customerList', customersList);
+    const customer = customersList.filter((item)=>item.docNum == document);
+    console.log('Selected Customer: ', customer);
 
-    let identificacion = customer[0].tipo_identi+" - "+customer[0].num_identi;
+    let identificacion = customer[0].docType+" - "+customer[0].docNum;
 
     jQuery('.modal').modal({backdrop: 'static', keyboard: false});
     jQuery('.modal-title').html('Información del cliente')
@@ -68,20 +68,12 @@ function showCustomerData(document){
                 '<input type="text" class="form-control" value="'+identificacion+'" disabled="true"/>'+
             '</div>'+
             '<div class="col-xs-12 col-md-6">'+
-                '<label>Primer nombre</label>'+
-                '<input type="text" class="form-control" value="'+customer[0].nombre+'" lbl="Primer nombre" id="nombre"/>'+
+                '<label>Nombre</label>'+
+                '<input type="text" class="form-control" value="'+customer[0].name+'" lbl="Primer nombre" id="name"/>'+
             '</div>'+
             '<div class="col-xs-12 col-md-6">'+
-                '<label>Segundo nombre</label>'+
-                '<input type="text" class="form-control" value="'+customer[0].nombre2+'" lbl="Segundo nombre" id="nombre2"/>'+
-            '</div>'+
-            '<div class="col-xs-12 col-md-6">'+
-                '<label>Primer apellido</label>'+
-                '<input type="text" class="form-control" value="'+customer[0].apellido+'" lbl="Primer apellido" id="apellido"/>'+
-            '</div>'+
-            '<div class="col-xs-12 col-md-6">'+
-                '<label>Segundo apellido</label>'+
-                '<input type="text" class="form-control" value="'+customer[0].apellido2+'" lbl="Segundo apellido" id="apellido2"/>'+
+                '<label>Apellido</label>'+
+                '<input type="text" class="form-control" value="'+customer[0].surname+'" lbl="Segundo nombre" id="surname"/>'+
             '</div>'+
             '<div class="col-12">'+
                 '<label>Correo electrónico</label>'+
@@ -89,11 +81,11 @@ function showCustomerData(document){
             '</div>'+
             '<div class="col-12">'+
                 '<label>Dirección</label>'+
-                '<input type="text" class="form-control" value="'+customer[0].direccion+'" lbl="Dirección" id="direccion"/>'+
+                '<input type="text" class="form-control" value="'+customer[0].address+'" lbl="Dirección" id="address"/>'+
             '</div>'+
             '<div class="col-12">'+
                 '<label>Teléfono</label>'+
-                '<input type="text" class="form-control" value="'+customer[0].telefono+'" lbl="Teléfono" id="telefono"/>'+
+                '<input type="text" class="form-control" value="'+customer[0].phone+'" lbl="Teléfono" id="phone"/>'+
             '</div>'+
             '<div class="col-12">'+
                 '<hr>'+
@@ -104,15 +96,13 @@ function showCustomerData(document){
     jQuery('.modal-footer').html('<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button><button type="button" class="btn btn-success btn-accept"><i class="fa fa-save"></i> Actualizar información</button>');
 
     jQuery('.btn-accept').click(function(){
-        let nombre = jQuery('#nombre');
-        let nombre2 = jQuery('#nombre2');
-        let apellido = jQuery('#apellido');
-        let apellido2 = jQuery('#apellido2');
-        let email = jQuery('#email');
-        let direccion = jQuery('#direccion');
-        let telefono = jQuery('#telefono');
+        let name    = jQuery('#name');
+        let surname = jQuery('#surname');
+        let email   = jQuery('#email');
+        let address = jQuery('#address');
+        let phone   = jQuery('#phone');
 
-        let fields = [nombre, apellido, email, direccion, telefono];
+        let fields = [name, surname, email, address, phone];
         let errors = [];
 
         for(i=0; i < fields.length; i++){
@@ -140,15 +130,12 @@ function showCustomerData(document){
                 type: "POST",
                 url: "http://localhost:8000/api/client-update",
                 data:{
-                    tipo_identi:    customer[0].tipo_identi,
-                    num_identi:     customer[0].num_identi,
-                    nombre:         nombre.val(),
-                    nombre2:        nombre2.val(),
-                    apellido:       apellido.val(),
-                    apellido2:      apellido2.val(),
-                    email:          email.val(),
-                    telefono:       telefono.val(),
-                    direccion:      direccion.val()
+                    userId:     customer[0].userId,
+                    name:       name.val(),
+                    surname:    surname.val(),
+                    email:      email.val(),
+                    phone:      phone.val(),
+                    address:    address.val()
                 },
                 success: function(response){
                     console.log('[SUCCESS]', response);

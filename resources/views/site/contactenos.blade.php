@@ -12,7 +12,8 @@
                 <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3976.083963083147!2d-74.04772229289436!3d4.75543118845024!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e3f859a02f2e839%3A0x8cddbf0f0c721c36!2sCl.%20174b%20%2347-49%2C%20Bogot%C3%A1!5e0!3m2!1ses-419!2sco!4v1624670623323!5m2!1ses-419!2sco" width="100%" height="350" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
             </div>
             <div class="location-data">
-                <h3>Visitanos</h3>
+                <hr>
+                <h3>Visítanos</h3>
                 <table class="table table-address">
                     <tr>
                         <td><b>Dirección</b></td><td>Calle 174B-47-63 Costado sur del home center</td>
