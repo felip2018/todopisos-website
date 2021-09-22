@@ -12,6 +12,7 @@
         <link rel="stylesheet" href="{{asset('assets/css/website.css')}}">
         <link rel="stylesheet" href="{{asset('assets/css/bootstrap.min.css')}}">
         <link rel="stylesheet" href="{{asset('assets/fontawesome/css/all.css')}}">
+        <script src="{{asset('assets/js/variables.js')}}"></script>
     </head>
     <body>
 

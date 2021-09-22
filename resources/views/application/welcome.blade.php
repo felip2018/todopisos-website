@@ -10,6 +10,10 @@
         
     </div>
 
-    @yield('productos')
+    <script>
+        jQuery(document).ready(function(){
+            console.log("Welcome")
+        })
+    </script>
 
 @endsection

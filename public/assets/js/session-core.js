@@ -27,7 +27,7 @@ function login(){
 
         jQuery.ajax({
             type: "POST",
-            url: "http://localhost:8000/api/login",
+            url: `${HOST}/api/login`,
             data:{
                 user: 	user.val(),
                 pass:   pass.val()
@@ -60,9 +60,7 @@ function login(){
 function validateSession(){
 	console.log('Validate Session!');
 	const isLogin = sessionStorage.getItem('is-loggin');
-	if(!isLogin){
-		closeSession();
-	} 
+	return isLogin;
 }
 
 function closeSession(){

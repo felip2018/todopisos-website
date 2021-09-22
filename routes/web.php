@@ -3,7 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 
-Use App\Http\Controllers\ClientesController;
+Use App\Http\Controllers\CustomersController;
+Use App\Http\Controllers\ServicesController;
 
 
 Route::get('/', function () {
@@ -11,11 +12,13 @@ Route::get('/', function () {
 });
 
 Route::get('/quienes-somos', function() {
-    return view('site.quienes-somos');
+    $data = json_decode(file_get_contents('assets/page_data/quienes-somos.json'));
+    return view('site.quienes-somos', ["data" => $data]);
 });
 
 Route::get('/nuestros-servicios', function() {
-    return view('site.nuestros-servicios');
+    $servicios = ServicesController::getAllServices();
+    return view('site.nuestros-servicios', ["servicios" => $servicios]);
 });
 
 Route::get('/contactenos', function() {
@@ -30,11 +33,11 @@ Route::get('/registrarse', function() {
     return view('site.registrarse-como-cliente');
 });
 
+// App
+
 Route::get('/app/inicio', function() {
     return view('application.welcome');
 });
-
-// App::Clientes
 
 Route::get('/app/clientes', function() {
     return view('application.clientes.inicio');
@@ -43,8 +46,6 @@ Route::get('/app/clientes', function() {
 Route::get('/app/clientes/registrar', function() {
     return view('application.clientes.registrar');
 });
-
-// App::Galeria
 
 Route::get('/app/galeria', function() {
     return view('application.galeria.inicio');

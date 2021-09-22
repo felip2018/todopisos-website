@@ -6,9 +6,9 @@ Use App\Models\Clientes;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class ClientesController extends Controller
+class CustomersController extends Controller
 {
-    public static function index() {
+    public static function getAllCustomers() {
         $sql = "SELECT 
                 u.userId,
                 u.documentTypeId,

@@ -1,6 +1,6 @@
 function getAllCustomers(){
     jQuery.ajax({
-        url: "http://localhost:8000/api/clients/",
+        url: `${HOST}/api/clients/`,
         success: function(response){
             let res = JSON.parse(response);
             
@@ -128,7 +128,7 @@ function showCustomerData(document){
 
             jQuery.ajax({
                 type: "POST",
-                url: "http://localhost:8000/api/client-update",
+                url: `${HOST}/api/client-update`,
                 data:{
                     userId:     customer[0].userId,
                     name:       name.val(),
@@ -190,7 +190,7 @@ function saveCustomer(){
 
         jQuery.ajax({
             type: "POST",
-            url: "http://localhost:8000/api/client-insert",
+            url: `${HOST}/api/client-insert`,
             data:{
                 tipo_identi:    tipo_identi.val(),
                 num_identi:     num_identi.val(),

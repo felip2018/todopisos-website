@@ -39,7 +39,7 @@
   
 
 </head>
-<body class="hold-transition sidebar-mini layout-fixed" onload="validateSession()">
+<body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
 
   <!-- Navbar -->
@@ -65,38 +65,14 @@
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="info">
-          <a href="#" class="d-block">Usuario</a>
+          <label class="d-block" id="username"></label>
         </div>
       </div>
 
       <!-- Sidebar Menu -->
       <nav class="mt-2">
-        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false" id="menu-app">
           
-            <li class="nav-item">
-                <a href="/app/inicio" class="nav-link">
-                    <i class="nav-icon fas fa-home"></i>
-                    <p>Inicio</p>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="/app/galeria" class="nav-link">
-                    <i class="nav-icon far fa-image"></i>
-                    <p>Galería</p>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="/app/clientes" class="nav-link">
-                  <i class="nav-icon fas fa-users"></i>
-                  <p>Clientes</p>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="#" class="nav-link" onclick="closeSession()">
-                    <i class="nav-icon fas fa-sign-out-alt"></i>
-                    <p>Cerrar sesión</p>
-                </a>
-            </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
@@ -151,9 +127,59 @@
 <script src="{{asset('assets/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 <!-- AdminLTE App -->
 <script src="{{asset('assets/dist/js/adminlte.js')}}"></script>
+<script src="{{asset('assets/js/variables.js')}}"></script>
+<script>
 
+  jQuery(document).ready(function(){
+    
+    jQuery('.modal').modal({backdrop: 'static', keyboard: false});
+    jQuery('.modal-title').html('Cargando.')
+    jQuery('.modal-body').html('');
+    jQuery('.modal-footer').html('');
+
+    const isLogin = validateSession();
+
+    if (isLogin) {
+      let userData = JSON.parse(sessionStorage.getItem('user-data'))[0];
+      jQuery('#username').html(userData.name);
+      // Render menu
+      jQuery.ajax({
+        type:"POST",
+        url: `${HOST}/api/render-menu`,
+        data: {
+          profileId: userData.profileId
+        },
+        success: function(response) {
+          let res = JSON.parse(response);
+          console.log('res:', res);
+          jQuery('#menu-app').html('');
+          jQuery.each(res, function(index, value){
+            console.log('value', value);
+            jQuery('#menu-app').append('<li class="nav-item">'+
+                '<a href="'+value.link+'" class="nav-link">'+
+                    '<i class="'+value.i_class+'"></i>'+
+                    '<p>'+value.name+'</p>'+
+                '</a>'+
+            '</li>');
+          });
+          jQuery('#menu-app').append('<li class="nav-item">'+
+                '<a href="#" class="nav-link" onclick="closeSession()">'+
+                    '<i class="nav-icon fas fa-sign-out-alt"></i>'+
+                    '<p>CERRAR SESIÓN</p>'+
+                '</a>'+
+            '</li>')
+        }
+      })
+
+      jQuery('.modal').modal('toggle');
+    } else {
+      closeSession();
+    }
+  })
+</script>
 <!--CORE-->
 <script src="{{ asset('assets/js/clientes/core.js')}}"></script>
 <script src="{{asset('assets/js/session-core.js')}}"></script>
+
 </body>
 </html>
