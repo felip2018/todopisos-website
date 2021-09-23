@@ -56,7 +56,12 @@ Route::get('/iniciar-sesion', function() {
 });
 
 Route::get('/registrarse', function() {
-    return view('site.registrarse-como-cliente');
+    $documentTypesList  = UtilsController::getAllDocumentTypes();
+    $departmentsList    = UtilsController::getAllDepartments();
+    return view('site.registrarse-como-cliente', [
+        "documents"     => $documentTypesList,
+        "departments"   => $departmentsList
+    ]);
 });
 
 // App
@@ -123,4 +128,13 @@ Route::get('/app/quienes-somos', function() {
 
 Route::get('/app/cotizaciones', function() {
     return view('application.cotizacion.inicio');
+});
+
+
+Route::get('/app/mis-cotizaciones', function() {
+    return view('application.cotizacion.mis-cotizaciones');
+});
+
+Route::get('/app/mis-facturas', function() {
+    return view('application.cotizacion.mis-facturas');
 });

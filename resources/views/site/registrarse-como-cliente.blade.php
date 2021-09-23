@@ -16,47 +16,53 @@
             </p>
             <div class="col-12 form-container">
                 <div class="row">
-		            <div class="col-xs-12 col-md-6">
+					<div class="col-xs-12 col-md-6">
 		                <label>Tipo de identificación</label>
-		                <select class="form-control" lbl="Tipo de identificación" id="tipo_identi">
+		                <select class="form-control" lbl="Tipo de identificación" id="documentTypeId">
 		                	<option value="">-Seleccione</option>
-		                	<option value="CC">Cédula de ciudadanía</option>
-		                	<option value="CE">Cédula de extranjería</option>
-		                	<option value="PAS">Pasaporte</option>
-		                	<option value="NIT">NIT</option>
+							@foreach ($documents as $doc)
+								<option value="{{$doc->documentTypeId}}">{{$doc->name}}</option>
+							@endforeach
 		                </select>
 		            </div>
 		            <div class="col-xs-12 col-md-6">
 		                <label>Número de identificación</label>
-		                <input type="number" class="form-control" lbl="Número de identificacion" id="num_identi"/>
+		                <input type="number" class="form-control" lbl="Número de identificacion" id="docNum"/>
 		            </div>
 		            <div class="col-xs-12 col-md-6">
-		                <label>Primer nombre</label>
-		                <input type="text" class="form-control" lbl="Primer nombre" id="nombre"/>
+		                <label>Nombre</label>
+		                <input type="text" class="form-control" lbl="Nombre" id="name"/>
 		            </div>
 		            <div class="col-xs-12 col-md-6">
-		                <label>Segundo nombre</label>
-		                <input type="text" class="form-control" lbl="Segundo nombre" id="nombre2"/>
-		            </div>
-		            <div class="col-xs-12 col-md-6">
-		                <label>Primer apellido</label>
-		                <input type="text" class="form-control" lbl="Primer apellido" id="apellido"/>
-		            </div>
-		            <div class="col-xs-12 col-md-6">
-		                <label>Segundo apellido</label>
-		                <input type="text" class="form-control" lbl="Segundo apellido" id="apellido2"/>
+		                <label>Apellido</label>
+		                <input type="text" class="form-control" lbl="Apellido" id="surname"/>
 		            </div>
 		            <div class="col-12">
 		                <label>Correo electrónico</label>
 		                <input type="text" class="form-control" lbl="Correo electrónico" id="email"/>
 		            </div>
+					<div class="col-xs-12 col-md-6">
+		                <label>Departamento</label>
+		                <select class="form-control" lbl="Departamento" id="dpmntId" onchange="searchCity(this.value)">
+		                	<option value="">-Seleccione</option>
+							@foreach ($departments as $dpto)
+								<option value="{{$dpto->dpmntId}}">{{$dpto->name}}</option>
+							@endforeach
+		                </select>
+		            </div>
+		            <div class="col-xs-12 col-md-6">
+		                <label>Ciudad</label>
+		                <select class="form-control" lbl="Ciudad" id="cityId" disabled>
+		                	<option value="">-Seleccione</option>
+		                </select>
+		            </div>
 		            <div class="col-12">
 		                <label>Dirección</label>
-		                <input type="text" class="form-control" lbl="Dirección" id="direccion"/>
+		                <input type="text" class="form-control" lbl="Dirección" id="address"/>
 		            </div>
 		            <div class="col-12">
 		                <label>Teléfono</label>
-		                <input type="text" class="form-control" lbl="Teléfono" id="telefono"/>
+		                <input type="text" class="form-control" lbl="Teléfono" id="phone"/>
 		            </div>
 		            <div class="col-12">
 		                <hr>
