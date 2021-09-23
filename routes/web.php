@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Session;
 
 Use App\Http\Controllers\CustomersController;
 Use App\Http\Controllers\ServicesController;
+Use App\Http\Controllers\UtilsController;
 
 
 Route::get('/', function () {
@@ -17,7 +18,7 @@ Route::get('/quienes-somos', function() {
 });
 
 Route::get('/nuestros-servicios', function() {
-    $servicios = ServicesController::getAllServices();
+    $servicios = ServicesController::getAllServices('ACTIVO');
     return view('site.nuestros-servicios', ["servicios" => $servicios]);
 });
 
@@ -35,8 +36,12 @@ Route::get('/registrarse', function() {
 
 // App
 
-Route::get('/app/inicio', function() {
-    return view('application.welcome');
+Route::get('/app/administrator', function() {
+    return view('application.admin-home');
+});
+
+Route::get('/app/customer', function() {
+    return view('application.customer-home');
 });
 
 Route::get('/app/clientes', function() {
@@ -44,13 +49,24 @@ Route::get('/app/clientes', function() {
 });
 
 Route::get('/app/clientes/registrar', function() {
-    return view('application.clientes.registrar');
+    $documentTypesList  = UtilsController::getAllDocumentTypes();
+    $departmentsList    = UtilsController::getAllDepartments();
+    return view('application.clientes.registrar', [
+        "documents"     => $documentTypesList,
+        "departments"   => $departmentsList
+    ]);
 });
 
-Route::get('/app/galeria', function() {
-    return view('application.galeria.inicio');
+Route::get('/app/servicios', function() {
+    $servicios = ServicesController::getAllServices('ALL');
+    return view('application.servicios.inicio', ["servicios" => $servicios]);
 });
 
-Route::get('/app/galeria/registrar', function() {
-    return view('application.galeria.registrar');
+Route::get('/app/servicios/registrar', function() {
+    return view('application.servicios.registrar');
+});
+
+Route::get('/app/servicios/editar/{productLineId}', function($productLineId) {
+    $servicio = ServicesController::getServiceById($productLineId);
+    return view('application.servicios.editar', ["servicio" => $servicio]);
 });

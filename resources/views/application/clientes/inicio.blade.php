@@ -9,8 +9,6 @@
                 Clientes
             </div>
         </div>
-    </div>
-    <div class="row">
         <div class="col-xs-12 m-2">
             <a href="/app/clientes/registrar" class="btn btn-primary">
                 <i class="fa fa-plus"></i> Registrar nuevo

@@ -72,7 +72,7 @@ class CustomersController extends Controller
         return $response;
     }
 
-    public function insertClient(Request $request) {
+    public static function insertClient(Request $request) {
 
         $params = $request->all();
 
@@ -89,7 +89,7 @@ class CustomersController extends Controller
         $sql = "INSERT INTO user (`documentTypeId`, `docNum`, `profileId`, `name`, `surname`, `email`, `phone`, `address`, `password`, `cityId`, `date`, `status`) VALUES
         (?,?,?,?,?,?,?,?,?,?,NOW(),'ACTIVO')";
 
-        $customerValidation = ClientesController::customerValidation([$documentTypeId, $docNum, $email]);
+        $customerValidation = CustomersController::customerValidation([$documentTypeId, $docNum, $email]);
 
         if($customerValidation['canContinue']){
         
@@ -125,8 +125,6 @@ class CustomersController extends Controller
         }
 
         return json_encode($response);
-
-        
     }
 
     public function updateClient(Request $request) {

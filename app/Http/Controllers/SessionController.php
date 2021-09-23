@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 
 class SessionController extends Controller
 {
-	public static function login(Request $request){
+	public static function login(Request $request) {
 		$params = $request->all();
 
 		$user = $params['user'];
@@ -52,5 +52,28 @@ class SessionController extends Controller
 		}
 
 		return json_encode($response);
+	}
+
+	public static function initialRoute(Request $request) {
+		$params = $request->all();
+		$profileId = $params['profileId'];
+
+		$route = '';
+
+		switch ($profileId) {
+			case 1:
+				$route = '/app/administrator';
+				break;
+			
+			case 2:
+				$route = '/app/customer';
+				break;
+			
+			default:
+				$route = '/app/customer';
+				break;
+		}
+
+		return json_encode(["route" => $route]);
 	}
 }

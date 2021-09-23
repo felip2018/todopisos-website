@@ -36,13 +36,23 @@ function login(){
                 let res = JSON.parse(response);
 
                 if(res.status == 200){
-
-                	// guardar session storage y redireccionar a la aplicacion
+                    const userData = res.data[0];
+                	// guardar session storage y redireccionar a la aplicacion  
                 	sessionStorage.setItem('is-loggin', 'true');
-                	sessionStorage.setItem('user-data', JSON.stringify(res.data))
+                	sessionStorage.setItem('user-data', JSON.stringify(userData))
 
-                	window.open('/app/inicio','_self');
-
+                    jQuery.ajax({
+                        type: "POST",
+                        url: `${HOST}/api/initial-route`,
+                        data: {
+                            profileId: userData.profileId
+                        },
+                        success: function(response) {
+                            console.log('res', response)
+                            let res = JSON.parse(response);
+                            window.open(res.route,'_self');
+                        }
+                    });
                 }else{
                 	let alertType = (res.status == 200) ? 'alert-success' : 'alert-warning';
                 	let html = '<div class="alert '+alertType+'">'+res.message+'</div>';

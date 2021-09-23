@@ -32,8 +32,8 @@ function renderCustomersList(list) {
             '<td>'+value['email']+'</td>'+
             '<td>'+
                 '<button class="btn btn-primary m-1" title="Ver información" onclick=showCustomerData('+value['docNum']+')><i class="fa fa-eye"></i></button>'+
-                '<button class="btn btn-primary m-1" title="Crear factura"><i class="fa fa-file"></i></button>'+
-                '<button class="btn btn-primary m-1" title="Crear cotización"><i class="fas fa-file-invoice"></i></button>'+
+                '<button class="btn btn-primary m-1" title="Crear factura"><i class="fas fa-file-invoice"></i></button>'+
+                '<button class="btn btn-primary m-1" title="Crear cotización"><i class="fas fa-list"></i></button>'+
             '</td>'+
         '</tr>');
     });
@@ -41,9 +41,8 @@ function renderCustomersList(list) {
 
 function filterCustomersByDocument(document){
     const customersList = JSON.parse(sessionStorage.getItem('listado-clientes'));
-   
     const filerList = customersList.filter((item)=>{
-        return item.num_identi == document
+        return item.docNum == document
     });
     if(filerList.length > 0){
         renderCustomersList(filerList);
@@ -54,9 +53,7 @@ function filterCustomersByDocument(document){
 
 function showCustomerData(document){
     const customersList = JSON.parse(sessionStorage.getItem('listado-clientes'));
-    console.log('customerList', customersList);
     const customer = customersList.filter((item)=>item.docNum == document);
-    console.log('Selected Customer: ', customer);
 
     let identificacion = customer[0].docType+" - "+customer[0].docNum;
 
@@ -154,18 +151,42 @@ function showCustomerData(document){
     })
 }
 
-function saveCustomer(){
-    let tipo_identi = jQuery('#tipo_identi');
-    let num_identi  = jQuery('#num_identi');
-    let nombre      = jQuery('#nombre');
-    let nombre2     = jQuery('#nombre2');
-    let apellido    = jQuery('#apellido');
-    let apellido2   = jQuery('#apellido2');
-    let email       = jQuery('#email');
-    let direccion   = jQuery('#direccion');
-    let telefono    = jQuery('#telefono');
+function searchCity(dpmntId) {
+    if (dpmntId) {
+        jQuery.ajax({
+            type: "POST",
+            url: `${HOST}/api/get-cities-by-deparment-id`,
+            data: {
+                dpmntId
+            },
+            success: function(response) {
+                let res = JSON.parse(response);
+                jQuery('#cityId').attr('disabled', false);
+                jQuery('#cityId').html('<option value="">-Seleccione</option>');
+                jQuery.each(res, function(index, value) {
+                    jQuery('#cityId').append('<option value="'+value.cityId+'">'+value.name+'</option>');
+                });
+            }
+        })
+    } else {
+        console.log('No ha seleccionado ningún departamento!');
+        jQuery('#cityId').attr('disabled', true);
+        jQuery('#cityId').html('<option value="">-Seleccione</option>');
+    }
+}
 
-    let fields = [tipo_identi, num_identi, nombre, apellido, email, direccion, telefono];
+function saveCustomer(){
+    let documentTypeId  = jQuery('#documentTypeId');
+    let docNum          = jQuery('#docNum');
+    let name            = jQuery('#name');
+    let surname         = jQuery('#surname');
+    let email           = jQuery('#email');
+    let dpmntId         = jQuery('#dpmntId');
+    let cityId          = jQuery('#cityId');
+    let address         = jQuery('#address');
+    let phone           = jQuery('#phone');
+
+    let fields = [documentTypeId, docNum, name, surname, email, dpmntId, cityId, address, phone];
     let errors = [];
 
     for (let i = 0; i < fields.length; i++) {
@@ -192,20 +213,18 @@ function saveCustomer(){
             type: "POST",
             url: `${HOST}/api/client-insert`,
             data:{
-                tipo_identi:    tipo_identi.val(),
-                num_identi:     num_identi.val(),
-                nombre:         nombre.val(),
-                nombre2:        nombre2.val(),
-                apellido:       apellido.val(),
-                apellido2:      apellido2.val(),
-                email:          email.val(),
-                telefono:       telefono.val(),
-                direccion:      direccion.val()
+                documentTypeId: documentTypeId.val(),
+                docNum:  docNum.val(),
+                name:    name.val(),
+                surname: surname.val(),
+                email:   email.val(),
+                address: address.val(),
+                phone:   phone.val(),
+                cityId:  cityId.val(),
             },
             success: function(response){
-                console.log('[SUCCESS]', response);
                 let res = JSON.parse(response);
-                let alertType = (res.status == 200) ? 'alert-success' : 'alert-warning';
+                let alertType = (res.status == 201) ? 'alert-success' : 'alert-warning';
                 let html = '<div class="alert '+alertType+'">'+res.message+'</div>';
 
                 jQuery('.alerta').html(html);

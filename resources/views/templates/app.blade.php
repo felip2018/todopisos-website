@@ -140,7 +140,7 @@
     const isLogin = validateSession();
 
     if (isLogin) {
-      let userData = JSON.parse(sessionStorage.getItem('user-data'))[0];
+      let userData = JSON.parse(sessionStorage.getItem('user-data'));
       jQuery('#username').html(userData.name);
       // Render menu
       jQuery.ajax({
@@ -151,23 +151,22 @@
         },
         success: function(response) {
           let res = JSON.parse(response);
-          console.log('res:', res);
+
           jQuery('#menu-app').html('');
           jQuery.each(res, function(index, value){
-            console.log('value', value);
             jQuery('#menu-app').append('<li class="nav-item">'+
-                '<a href="'+value.link+'" class="nav-link">'+
-                    '<i class="'+value.i_class+'"></i>'+
-                    '<p>'+value.name+'</p>'+
-                '</a>'+
+              '<a href="'+value.link+'" class="nav-link">'+
+                  '<i class="'+value.i_class+'"></i>'+
+                  '<p>'+value.name+'</p>'+
+              '</a>'+
             '</li>');
           });
           jQuery('#menu-app').append('<li class="nav-item">'+
-                '<a href="#" class="nav-link" onclick="closeSession()">'+
-                    '<i class="nav-icon fas fa-sign-out-alt"></i>'+
-                    '<p>CERRAR SESIÓN</p>'+
-                '</a>'+
-            '</li>')
+            '<a href="#" class="nav-link" onclick="closeSession()">'+
+                '<i class="nav-icon fas fa-sign-out-alt"></i>'+
+                '<p>CERRAR SESIÓN</p>'+
+            '</a>'+
+          '</li>')
         }
       })
 
@@ -178,8 +177,9 @@
   })
 </script>
 <!--CORE-->
-<script src="{{ asset('assets/js/clientes/core.js')}}"></script>
 <script src="{{asset('assets/js/session-core.js')}}"></script>
+<script src="{{ asset('assets/js/clientes/core.js')}}"></script>
+<script src="{{ asset('assets/js/servicios/core.js')}}"></script>
 
 </body>
 </html>
