@@ -8,6 +8,9 @@
             <div class="section-title">
                 Servicios
             </div>
+            <div class="alert alert-info">
+                En esta sección podrá configurar los servicios de su negocio y que serán visualizados en el sitio web.
+            </div>
         </div>
         <div class="col-xs-12 m-2">
             <a href="/app/servicios/registrar" class="btn btn-primary">

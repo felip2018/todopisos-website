@@ -30,49 +30,18 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-3">
-            <div class="member-team">
-                <div class="card">
-                    <img src="{{asset('assets/img/dummy-user.png')}}" class="card-img-top" alt="dummy">
-                    <div class="card-body">
-                        <h5 class="card-title">Isabel</h5>
-                        <p class="card-text">Diseñadora</p>
+        @foreach ($data->ourTeam as $person)
+            <div class="col-xs-12 col-sm-12 col-md-3">
+                <div class="member-team">
+                    <div class="card">
+                        <img src="{{asset($person->img)}}" class="card-img-top" alt="{{$person->img}}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{$person->name}}</h5>
+                            <p class="card-text">{{$person->job}}</p>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="col-xs-12 col-sm-12 col-md-3">
-            <div class="member-team">
-                <div class="card">
-                    <img src="{{asset('assets/img/dummy-user.png')}}" class="card-img-top" alt="dummy">
-                    <div class="card-body">
-                        <h5 class="card-title">Juan</h5>
-                        <p class="card-text">Instalador</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-xs-12 col-sm-12 col-md-3">
-            <div class="member-team">
-                <div class="card">
-                    <img src="{{asset('assets/img/dummy-user.png')}}" class="card-img-top" alt="dummy">
-                    <div class="card-body">
-                        <h5 class="card-title">Carlos</h5>
-                        <p class="card-text">Ventas</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-xs-12 col-sm-12 col-md-3">
-            <div class="member-team">
-                <div class="card">
-                    <img src="{{asset('assets/img/dummy-user.png')}}" class="card-img-top" alt="dummy">
-                    <div class="card-body">
-                        <h5 class="card-title">María</h5>
-                        <p class="card-text">Comercial</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+        @endforeach
     </div>
 @endsection

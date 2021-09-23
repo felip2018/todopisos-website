@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Session;
 Use App\Http\Controllers\CustomersController;
 Use App\Http\Controllers\ServicesController;
 Use App\Http\Controllers\UtilsController;
+Use App\Http\Controllers\ProductsController;
 
 
 Route::get('/', function () {
@@ -69,4 +70,33 @@ Route::get('/app/servicios/registrar', function() {
 Route::get('/app/servicios/editar/{productLineId}', function($productLineId) {
     $servicio = ServicesController::getServiceById($productLineId);
     return view('application.servicios.editar', ["servicio" => $servicio]);
+});
+
+Route::get('/app/servicios/productos/editar/{productId}', function($productId) {
+    $producto = ProductsController::getProductById($productId);
+    return view('application.servicios.editar-producto', [
+        "producto" => $producto
+    ]);
+});
+
+Route::get('/app/servicios/productos/{productLineId}', function($productLineId) {
+    $servicio = ServicesController::getServiceById($productLineId);
+    $productos = ProductsController::getProducts([
+        "productLineId" => $productLineId,
+        "type" => "BY_SERVICE",
+        "status" => ""
+    ]);
+    return view('application.servicios.productos', [
+        "servicio"  => $servicio,
+        "productos" => $productos
+    ]);
+});
+
+Route::get('/app/quienes-somos', function() {
+    $data = json_decode(file_get_contents('assets/page_data/quienes-somos.json'));
+    return view('application.quienes-somos', ["data" => $data]);
+});
+
+Route::get('/app/cotizaciones', function() {
+    return view('application.cotizacion.inicio');
 });

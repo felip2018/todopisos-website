@@ -177,9 +177,11 @@
   })
 </script>
 <!--CORE-->
-<script src="{{asset('assets/js/session-core.js')}}"></script>
+<script src="{{ asset('assets/js/session-core.js')}}"></script>
 <script src="{{ asset('assets/js/clientes/core.js')}}"></script>
 <script src="{{ asset('assets/js/servicios/core.js')}}"></script>
+<script src="{{ asset('assets/js/productos/core.js')}}"></script>
+<script src="{{ asset('assets/js/quienes-somos.js')}}"></script>
 
 </body>
 </html>

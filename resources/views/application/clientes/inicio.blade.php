@@ -8,6 +8,9 @@
             <div class="section-title">
                 Clientes
             </div>
+            <div class="alert alert-info">
+                En esta sección podrá observar el listado de clientes registrados en el sistema asi como realizar nuevos registros.
+            </div>
         </div>
         <div class="col-xs-12 m-2">
             <a href="/app/clientes/registrar" class="btn btn-primary">
