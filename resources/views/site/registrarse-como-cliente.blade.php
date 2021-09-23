@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-12">
             <div class="section-title">
-                Registrar cliente
+                Registrarse
             </div>
         </div>
     </div>

@@ -10,7 +10,14 @@ Use App\Http\Controllers\ProductsController;
 
 
 Route::get('/', function () {
-    return view('site.welcome');
+    $destacados = ProductsController::getProducts([
+        "productLineId" => 0,
+        "type" => "OUTSTANDING",
+        "status" => "ACTIVO"
+    ]);
+    return view('site.welcome', [
+        "destacados" => $destacados
+    ]);
 });
 
 Route::get('/quienes-somos', function() {
@@ -21,6 +28,23 @@ Route::get('/quienes-somos', function() {
 Route::get('/nuestros-servicios', function() {
     $servicios = ServicesController::getAllServices('ACTIVO');
     return view('site.nuestros-servicios', ["servicios" => $servicios]);
+});
+
+Route::get('/carrito', function() {
+    return view('site.carrito');
+});
+
+Route::get('/servicio/{productLineId}', function($productLineId) {
+    $servicio = ServicesController::getServiceById($productLineId);
+    $productos = ProductsController::getProducts([
+        "productLineId" => $productLineId,
+        "type" => "BY_SERVICE_STATUS",
+        "status" => "ACTIVO"
+    ]);
+    return view('site.servicio', [
+        "servicio"  => $servicio,
+        "productos" => $productos
+    ]);
 });
 
 Route::get('/contactenos', function() {

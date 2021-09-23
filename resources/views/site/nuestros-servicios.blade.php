@@ -17,7 +17,7 @@
                                 <div class="card-body">
                                     <h5 class="card-title">{{$service->name}}</h5>
                                     <p class="card-text">{{$service->description}}</p>
-                                    <a class="btn btn-primary btn-block" href="site/service/{{$service->productLineId}}">
+                                    <a class="btn btn-primary btn-block" href="servicio/{{$service->productLineId}}">
                                         <i class="fa fa-eye"></i> Ver
                                     </a>
                                 </div>

@@ -31,6 +31,23 @@
                 </div>
             </div>
         </div>
+        <div class="col-12">
+            <div class="section-title">
+                Nuestros productos destacados
+            </div>
+            <div>
+                <div class="owl-carousel owl-theme mt-5">
+                    @foreach ($destacados as $destacado)
+                        <div class="item">
+                            <b>{{$destacado->name}}</b>
+                            <hr>
+                            <img src="{{asset($destacado->img)}}" alt="{{$destacado->img}}">
+                            
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        </div>
     </div>
 
     @yield('productos')

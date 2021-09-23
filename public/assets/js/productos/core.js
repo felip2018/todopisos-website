@@ -157,6 +157,7 @@ function updateProduct(productId) {
                 let res = JSON.parse(response);
                 let alertType = (res.status == 201) ? 'alert-success' : 'alert-warning';
                 let html = '<div class="alert '+alertType+'">'+res.message+'</div>';
+                jQuery('.alerta').html(html);
             },
             error: function(err){
                 console.log('[ERROR]', err);

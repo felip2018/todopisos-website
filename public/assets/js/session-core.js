@@ -68,7 +68,6 @@ function login(){
 }
 
 function validateSession(){
-	console.log('Validate Session!');
 	const isLogin = sessionStorage.getItem('is-loggin');
 	return isLogin;
 }

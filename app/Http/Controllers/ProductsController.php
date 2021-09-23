@@ -46,6 +46,22 @@ class ProductsController extends Controller
                     AND `status` = ? ";
                 $select = DB::select($sql, [$productLineId, $status]);
                 break;
+            
+            case 'OUTSTANDING':
+                // Consulta de destacados para la pagina web 
+                $sql = "SELECT 
+                    `productId`,
+                    `productLineId`,
+                    `name`,
+                    `description`,
+                    `img`,
+                    `outstanding`,
+                    `status`
+                    FROM product 
+                    WHERE outstanding = 'SI' 
+                    AND `status` = ?";
+                $select = DB::select($sql, [$params['status']]);
+                break;
         }
 
         return $select;
