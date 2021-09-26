@@ -12,8 +12,9 @@
         </div>
         <div class="col-12">
             <form class="row">
-                <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8" id="itemsList">
-        
+                <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+                    <div id="itemsList"></div>
+                    <div class="alerta"></div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
                     <div style="text-align: center">
@@ -40,7 +41,7 @@
                             <hr>
                         </div>
                         <div class="col-12">
-                            <button type="button" class="btn btn-primary btn-block">
+                            <button type="button" class="btn btn-primary btn-block" onclick="quotationRequest()">
                                 <i class="fas fa-paper-plane"></i> Solicitar cotización
                             </button>
                         </div>
@@ -49,9 +50,15 @@
             </form>
         </div>
     </div>
+    <script src="{{ asset('assets/js/session-core.js')}}"></script>
     <script src="{{ asset('assets/js/quotation.js')}}"></script>
     <script>
         renderQuotationListApp();
+        let customer = getCustomerData();
+        jQuery('#name').val(customer['name']);
+        jQuery('#surname').val(customer['surname']);
+        jQuery('#phone').val(customer['phone']);
+        jQuery('#email').val(customer['email']);
     </script>
 
 @endsection

@@ -76,3 +76,11 @@ function closeSession(){
 	sessionStorage.clear();
 	window.open('/iniciar-sesion', '_self');
 }
+
+function getCustomerData() {
+    if (sessionStorage.getItem('user-data')) {
+        customerData = JSON.parse(sessionStorage.getItem('user-data'));
+        return customerData;
+    }
+    return;
+}

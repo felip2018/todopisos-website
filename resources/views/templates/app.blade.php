@@ -176,6 +176,7 @@
     }
   })
 </script>
+
 <!--CORE-->
 <script src="{{ asset('assets/js/session-core.js')}}"></script>
 <script src="{{ asset('assets/js/clientes/core.js')}}"></script>
