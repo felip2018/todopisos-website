@@ -11,7 +11,7 @@
             </div>
         </div>
         <div class="col-12">
-            <form class="row">
+            <form class="row" id="quotationForm">
                 <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
                     <div id="itemsList"></div>
                     <div class="alerta"></div>
@@ -38,7 +38,14 @@
                             <input type="text" class="form-control" name="email" id="email" disabled="true">
                         </div>
                         <div class="col-12">
+                            <label>Observaciones</label>
+                            <textarea class="form-control" id="customerObservations" rows="4" placeholder="Agregar observaciones generales (opcional)"></textarea>
+                        </div>
+                        <div class="col-12">
                             <hr>
+                        </div>
+                        <div class="col-12" id="alerta">
+
                         </div>
                         <div class="col-12">
                             <button type="button" class="btn btn-primary btn-block" onclick="quotationRequest()">

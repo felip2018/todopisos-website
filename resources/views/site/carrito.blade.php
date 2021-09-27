@@ -15,9 +15,9 @@
         <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
             <div id="itemsList"></div>
             <hr>
-            <button class="btn btn-success btn-block">
-                Solicitar cotización
-            </button>
+            <a href="/iniciar-sesion" class="btn btn-success btn-block">
+                Iniciar sesión
+            </a>
         </div>
     </div>
     <script src="{{asset('assets/js/jquery-3.6.0.min.js')}}"></script>

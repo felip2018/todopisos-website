@@ -62,7 +62,8 @@ function renderQuotationListApp() {
                     '<div class="col-xs-12 col-md-10">'+
                         '<b>'+value['name']+'</b>'+
                         '<input type="hidden" name="product['+key+'][productId]" value="'+value['productId']+'"/>'+
-                        '<textarea class="form-control" name="product['+key+'][comment]" rows="2" placeholder="Agregar comentarios"></textarea>'+
+                        '<input type="hidden" name="product['+key+'][name]" value="'+value['name']+'"/>'+
+                        '<textarea class="form-control" name="product['+key+'][comment]" rows="2" placeholder="Agregar comentarios a la cotización de este producto (opcional)"></textarea>'+
                         '<hr>'+
                         '<button class="btn btn-danger" title="Eliminar" style="float:right" onclick=deleteItem('+key+',"APP")>'+
                             '<i class="fa fa-trash"></i>'+
@@ -89,9 +90,34 @@ function deleteItem(key, mode) {
 function quotationRequest() {
     if (localStorage.getItem('carrito')) {
         const carrito = JSON.parse(localStorage.getItem('carrito'));
+        const userData = JSON.parse(sessionStorage.getItem('user-data'));
+        if (carrito.length > 0) {
+            const customerObservations = jQuery('#customerObservations').val();
+            let form = document.getElementById('quotationForm');
+            let formData = new FormData(form);
+            formData.append('userId', userData.userId);
+            formData.append('customerObservations', customerObservations);
+            formData.append('quotationStatus', 'PENDIENTE');
+            jQuery.ajax({
+                type:"POST",
+                url: `${HOST}/api/quotation-insert`,
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function(response) {
+                    console.log('Response', response);
+                }
+            })
+
+        } else {
+            jQuery('#alerta').html('<div class="alert alert-warning">'+
+                '<p>No hay elementos en la lista de cotización.</p>'+
+            '</div>');
+        }
+
     } else {
         jQuery('#alerta').html('<div class="alert alert-warning">'+
             '<p>No hay elementos en la lista de cotización.</p>'+
-        '</div>')
+        '</div>');
     }
 }

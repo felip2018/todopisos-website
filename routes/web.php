@@ -138,3 +138,24 @@ Route::get('/app/mis-cotizaciones', function() {
 Route::get('/app/mis-facturas', function() {
     return view('application.cotizacion.mis-facturas');
 });
+
+Route::get('/quotation-email', function () {
+    $details = [
+        'title' => 'Todopisos & Cortinas',
+        'body' => 'Tu solicitud de cotización se ha enviado correctamente. En breve estaremos en contacto.',
+        'products' => [
+            [
+                'productId' => 1,
+                'name' => 'Producto 1',
+                'comment' => 'Comentario del producto 1'
+            ],
+            [
+                'productId' => 2,
+                'name' => 'Producto 2',
+                'comment' => 'Comentario del producto 2'
+            ]
+        ]
+    ];
+    return view('emails.quotationMailView', $details);
+    //\Mail::to('felipegarxon@hotmail.com')->send(new App\Mail\QuotationMail());   
+});

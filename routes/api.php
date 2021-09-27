@@ -11,6 +11,7 @@ Use App\Http\Controllers\ImageUploadController;
 Use App\Http\Controllers\ServicesController;
 Use App\Http\Controllers\AboutUsController;
 Use App\Http\Controllers\ProductsController;
+Use App\Http\Controllers\QuotationController;
 
 // Clients
 Route::get('clients', [CustomersController::class, 'getAllCustomers']);
@@ -27,6 +28,9 @@ Route::post('product-insert', [ProductsController::class, 'insertProduct']);
 Route::post('product-update', [ProductsController::class, 'updateProduct']);
 Route::post('product-status', [ProductsController::class, 'updateProductStatus']);
 Route::post('get-product-by-id', [ProductsController::class, 'getProductById']);
+
+// Quotation
+Route::post('quotation-insert', [QuotationController::class, 'saveQuotation']);
 
 // Authentication
 Route::post('login', [SessionController::class, 'login']);
