@@ -140,9 +140,25 @@ Route::get('/app/mis-facturas', function() {
 });
 
 Route::get('/quotation-email', function () {
+    $userData = '{
+        "userId": 77,
+        "documentTypeId": 1,
+        "docNum": 385484,
+        "profileId": 2,
+        "name": "JOSE",
+        "surname": "PEÑUELA",
+        "email": "josep@hotmail.com",
+        "phone": "3114529566",
+        "fullname": "JOSE PEÑUELA",
+        "address": "CRA 1E # 36 - 50",
+        "status": "ACTIVO",
+        "docType": "CC",
+        "profile": "CLIENTE"
+    }';
+
     $details = [
         'title' => 'Todopisos & Cortinas',
-        'body' => 'Tu solicitud de cotización se ha enviado correctamente. En breve estaremos en contacto.',
+        'body' => 'Se ha registrado la siguiente solicitud de cotización:',
         'products' => [
             [
                 'productId' => 1,
@@ -154,7 +170,8 @@ Route::get('/quotation-email', function () {
                 'name' => 'Producto 2',
                 'comment' => 'Comentario del producto 2'
             ]
-        ]
+        ],
+        'user' => json_decode($userData)
     ];
     return view('emails.quotationMailView', $details);
     //\Mail::to('felipegarxon@hotmail.com')->send(new App\Mail\QuotationMail());   

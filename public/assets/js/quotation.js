@@ -87,6 +87,11 @@ function deleteItem(key, mode) {
     (mode === 'APP') ? renderQuotationListApp() : renderQuotationListWeb();
 }
 
+function clearQuotationCar() {
+    localStorage.removeItem('carrito');
+    renderQuotationListApp();
+}
+
 function quotationRequest() {
     if (localStorage.getItem('carrito')) {
         const carrito = JSON.parse(localStorage.getItem('carrito'));
@@ -96,6 +101,7 @@ function quotationRequest() {
             let form = document.getElementById('quotationForm');
             let formData = new FormData(form);
             formData.append('userId', userData.userId);
+            formData.append('userData', JSON.stringify(userData));
             formData.append('customerObservations', customerObservations);
             formData.append('quotationStatus', 'PENDIENTE');
             jQuery.ajax({
@@ -106,6 +112,13 @@ function quotationRequest() {
                 processData: false,
                 success: function(response) {
                     console.log('Response', response);
+                    let res = JSON.parse(response);
+                    let alertType = (res.status == 201) ? 'alert-success' : 'alert-warning';
+                    let html = '<div class="alert '+alertType+'">'+res.message+'</div>';
+
+                    jQuery('.alerta').html(html);
+
+                    (res.status == 201) ? clearQuotationCar() : '';
                 }
             })
 

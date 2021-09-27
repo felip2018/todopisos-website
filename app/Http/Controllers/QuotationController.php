@@ -16,6 +16,7 @@ class QuotationController extends Controller
         $userId                 = $params['userId'];
         $customerObservations   = $params['customerObservations'];
         $quotationStatus        = $params['quotationStatus']; 
+        $userData               = json_decode($params['userData']);
         
         DB::beginTransaction();
 
@@ -46,11 +47,15 @@ class QuotationController extends Controller
 
                 $data = [
                     'title'     => 'Todopisos & Cortinas',
-                    'body'      => 'Tu solicitud de cotización se ha enviado correctamente. En breve estaremos en contacto.',
-                    'products'  => $params['product']
+                    'body'      => 'Se ha generado la siguiente solicitud de cotización:',
+                    'products'  => $params['product'],
+                    'user'      => $userData,
+                    'customerObservations' => $customerObservations,
                 ];
 
-                \Mail::to('felipegarxon@hotmail.com')->send(new QuotationMail($data));
+                \Mail::to('felipegarxon@hotmail.com')
+                ->cc($userData->email)
+                ->send(new QuotationMail($data));
 
                 $response = [
                     "status"    => 201,
