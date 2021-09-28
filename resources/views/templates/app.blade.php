@@ -183,6 +183,6 @@
 <script src="{{ asset('assets/js/servicios/core.js')}}"></script>
 <script src="{{ asset('assets/js/productos/core.js')}}"></script>
 <script src="{{ asset('assets/js/quienes-somos.js')}}"></script>
-
+<script src="{{ asset('assets/js/quotation.js')}}"></script>
 </body>
 </html>

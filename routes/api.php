@@ -31,6 +31,7 @@ Route::post('get-product-by-id', [ProductsController::class, 'getProductById']);
 
 // Quotation
 Route::post('quotation-insert', [QuotationController::class, 'saveQuotation']);
+Route::post('get-quotation-by-id', [QuotationController::class, 'getQuotationById']);
 
 // Authentication
 Route::post('login', [SessionController::class, 'login']);

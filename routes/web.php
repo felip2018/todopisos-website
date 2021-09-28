@@ -7,6 +7,7 @@ Use App\Http\Controllers\CustomersController;
 Use App\Http\Controllers\ServicesController;
 Use App\Http\Controllers\UtilsController;
 Use App\Http\Controllers\ProductsController;
+Use App\Http\Controllers\QuotationController;
 
 
 Route::get('/', function () {
@@ -127,7 +128,10 @@ Route::get('/app/quienes-somos', function() {
 });
 
 Route::get('/app/cotizaciones', function() {
-    return view('application.cotizacion.inicio');
+    $quotations = QuotationController::getAllQuotations();
+    return view('application.cotizacion.inicio', [
+        "quotations" => $quotations
+    ]);
 });
 
 
