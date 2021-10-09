@@ -37,9 +37,9 @@
                                 {{$q->status}}
                             </th>
                             <td>
-                                <button class="btn btn-primary" title="Ver" onclick="showQuotation({{$q->quotationId}})">
+                                <a class="btn btn-primary" title="Ver" href="cotizacion/{{$q->quotationId}}">
                                     <i class="fas fa-eye"></i>
-                                </button>
+                                </a>
                             </td>
                         </tr>
                     @endforeach

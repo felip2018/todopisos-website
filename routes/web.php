@@ -134,6 +134,13 @@ Route::get('/app/cotizaciones', function() {
     ]);
 });
 
+Route::get('/app/cotizacion/{quotationId}', function($quotationId) {
+    $data = QuotationController::getQuotationById($quotationId);
+    return view('application.cotizacion.responder-cotizacion', [
+        'data' => $data
+    ]);
+});
+
 
 Route::get('/app/mis-cotizaciones', function() {
     return view('application.cotizacion.mis-cotizaciones');

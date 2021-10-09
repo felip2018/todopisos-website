@@ -25,11 +25,7 @@ class QuotationController extends Controller
         return $select;
     }
 
-    public static function getQuotationById(Request $request) {
-
-        $params = $request->all();
-
-        $quotationId = $params["quotationId"];
+    public static function getQuotationById($quotationId) {
 
         $select = DB::select('SELECT 
             q.quotationId,
@@ -73,7 +69,7 @@ class QuotationController extends Controller
             ];
         }
 
-        return json_encode($response);
+        return $response;
     }
 
     public static function saveQuotation(Request $request) {

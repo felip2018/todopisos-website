@@ -1,3 +1,7 @@
+let totalQuotation = 0;
+const options1 = { style: 'currency', currency: 'COP' };
+const numberFormat1 = new Intl.NumberFormat('es-ES', options1);
+
 function addProductToQuotation(productId, name, img) {
     const obj = {
         productId,
@@ -143,90 +147,20 @@ function setTotalPrice(idx) {
     let totalPrice = jQuery('#totalPrice_'+idx);
 
     let price = parseInt(quantity.val()) * parseInt(unitPrice.val());
+    totalPrice.val(numberFormat1.format(price));
 
-    totalPrice.val(price);
+    setTotalValue();
 }
 
-function showQuotation(quotationId) {
-    console.log(`[SHOW] QuotationId: ${quotationId}`);
-    jQuery.ajax({
-        type:"POST",
-        url:`${HOST}/api/get-quotation-by-id`,
-        data: {
-            quotationId
-        },
-        success: function(response) {
-            console.log(response);
-            let res = JSON.parse(response);
-            if (res.status == 200) {
+function setTotalValue() {
+    let values = jQuery('.totalPrice');
+    let sum = 0;
+    jQuery.each(values, function(key, item){
+        let num = Number(item["value"].replace(/[^0-9.-]+/g,""));
+        console.log(`number: ${num}`)
+        //sum += number;
+    });
 
-                let detail = '';
-                let idx = 0;
-                jQuery.each(res.detail, function(key, value) {
-                    
-                    let comment = (value['productComment']) ? value['productComment'] : 'Sin descripción adicional'
-
-                    detail +=   '<div style="background-color:#DDDDDD;padding:5px;border-radius:5px;margin-top:10px;">';
-                    detail +=      '<b>'+value['productName']+'</b>';
-                    detail +=      '<p>'+comment+'</p>';
-                    detail +=      '<textarea class="form-control" name="product['+idx+'][description]" rows="3"></textarea>';
-                    detail +=      '<table>';
-                    detail +=           '<tr>';
-                    detail +=               '<td>';
-                    detail +=                   '<label>Cantidad</label>';
-                    detail +=                   '<input type="number" class="form-control" min="1" name="product['+idx+'][quantity]" value="'+value['quantity']+'" id="quantity_'+idx+'"/>';
-                    detail +=               '</td>';
-                    detail +=               '<td>';
-                    detail +=                   '<label>Valor unitario</label>';
-                    detail +=                   '<input type="number" class="form-control" min="1" name="product['+idx+'][unitPrice]" onblur="setTotalPrice('+idx+')" id="unitPrice_'+idx+'"/>';
-                    detail +=               '</td>';
-                    detail +=               '<td>';
-                    detail +=                   '<label>Valor total</label>';
-                    detail +=                   '<input type="number" class="form-control" min="1" name="product['+idx+'][totalPrice]" disabled id="totalPrice_'+idx+'"/>';
-                    detail +=               '</td>';
-                    detail +=           '</tr>';
-                    detail +=      '</table>';
-                    detail +=   '</div>';
-
-                    idx++;
-                });
-                detail += '</table>';
-
-                jQuery('.modal').modal({backdrop: 'static', keyboard: false});
-                jQuery('.modal-title').html('Detalle solicitud de cotización');
-                jQuery('.modal-body').html('<div class="row">'+
-                    '<div class="col-12">'+
-                        '<b>Información del cliente</b>'+
-                        '<table class="table">'+
-                            '<tr>'+
-                                '<td>Nombre </td>'+
-                                '<td>'+res.quotation.fullname+'</td>'+
-                            '</tr>'+
-                            '<tr>'+
-                                '<td>Documento </td>'+
-                                '<td>'+res.quotation.document+'</td>'+
-                            '</tr>'+
-                            '<tr>'+
-                                '<td>Teléfono</td>'+
-                                '<td>'+res.quotation.phone+'</td>'+
-                            '</tr>'+
-                            '<tr>'+
-                                '<td>Dirección</td>'+
-                                '<td>'+res.quotation.address+'</td>'+
-                            '</tr>'+
-                        '</table>'+
-                    '</div>'+
-                    '<hr>'+
-                    '<div class="col-12">'+
-                        '<b>Detalle de la solicitud</b>'+
-                        '<form id="quotationResponseForm">'+
-                            detail +
-                        '</form>'+
-                    '</div>'+
-                '</div>')
-            } else {
-                console.error(response);
-            }
-        }
-    })
+    jQuery('#totalQuotation').val(numberFormat1.format(sum));
 }
+
