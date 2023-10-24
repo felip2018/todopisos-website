@@ -31,7 +31,7 @@
                         </thead>
                         <tbody>
                             @foreach ($servicios as $service)
-                                <?php 
+                                <?php
                                     $color = ($service->status == "ACTIVO") ? "#10ac84" : "#ee5253";
                                 ?>
                                 <tr>
@@ -48,6 +48,9 @@
                                         <a class="btn btn-primary" title="Editar" href="/app/servicios/editar/{{$service->productLineId}}">
                                             <i class="fas fa-edit"></i>
                                         </a>
+                                        <a class="btn btn-primary" title="Productos" href="/app/servicios/productos/{{$service->productLineId}}">
+                                            <i class="fas fa-list"></i>
+                                        </a>
                                         @if ($service->status == "ACTIVO")
                                             <button class="btn btn-danger" title="INACTIVAR" onclick="serviceStatus({{$service->productLineId}}, 'INACTIVO')">
                                                 <i class="fas fa-times"></i>
@@ -57,9 +60,7 @@
                                                 <i class="fas fa-check"></i>
                                             </button>
                                         @endif
-                                        <a class="btn btn-primary" title="Productos" href="/app/servicios/productos/{{$service->productLineId}}">
-                                            <i class="fas fa-list"></i>
-                                        </a>
+
                                     </td>
                                 </tr>
                             @endforeach

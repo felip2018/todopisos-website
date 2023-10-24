@@ -26,6 +26,11 @@
     </div>
     <div class="row">
         <div class="col-12">
+            <hr>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
             <table class="table table-striped">
                 <thead class="thead-light">
                     <th>Identificación</th>
@@ -34,7 +39,7 @@
                     <th>Opciones</th>
                 </thead>
                 <tbody id="lista-clientes">
-                    
+
                 </tbody>
             </table>
         </div>
