@@ -3,10 +3,10 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Todo en pisos y cortinas</title>
+        <title>Todo pisos y cortinas</title>
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
-        
+
         <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="{{asset('assets/css/website.css')}}">
@@ -52,7 +52,7 @@
             </div>
         </div>
 
-        
+
         <script src="{{asset('assets/js/jquery-3.6.0.min.js')}}"></script>
         <script src="{{asset('assets/js/bootstrap.min.js')}}"></script>
 
@@ -73,9 +73,9 @@
             <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>-->
             <script src="{{asset('assets/js/owl.carousel.min.js')}}"></script>
             <link rel="stylesheet" href="{{asset('assets/css/owl.carousel.min.css')}}" />
-            <link rel="stylesheet" href="{{asset('assets/css/owl.theme.green.min.css')}}"/>           
-            
-            
+            <link rel="stylesheet" href="{{asset('assets/css/owl.theme.green.min.css')}}"/>
+
+
             <script>
               jQuery(document).ready(function($){
                 $('.owl-carousel').owlCarousel({
