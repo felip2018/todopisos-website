@@ -2,7 +2,7 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
         <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Todo pisos y cortinas</title>
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
@@ -10,6 +10,7 @@
         <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="{{asset('assets/css/website.css')}}">
+        <link rel="stylesheet" href="{{asset('assets/css/gallery.css')}}">
         <link rel="stylesheet" href="{{asset('assets/css/bootstrap.min.css')}}">
         <link rel="stylesheet" href="{{asset('assets/fontawesome/css/all.css')}}">
         <script src="{{asset('assets/js/variables.js')}}"></script>
@@ -27,23 +28,46 @@
             <div class="container">
                 <div class="row">
                     <div class="col-xs-12 col-md-12">
-                        <div class="navigation-menu">
+                        <!--<div class="navigation-menu">
                             <table class="table">
                                 <tr>
                                     <td><a href="/">Inicio</a></td>
                                     <td><a href="/quienes-somos">Quienes somos</a></td>
                                     <td><a href="/nuestros-servicios">Nuestros servicios</a></td>
                                     <td><a href="/contactenos">Contáctenos</a></td>
-                                    <td>
-                                      <a href="/carrito">
-                                        <i class="fas fa-shopping-cart"></i>
-                                        <label id="numberItems">0</label>
-                                      </a>
-                                    </td>
+                                    <td><a href="/galeria">Galería</a></td>
                                     <td><a href="/iniciar-sesion"><i class="fas fa-sign-in-alt"></i> Iniciar sesión</a></td>
                                 </tr>
                             </table>
-                        </div>
+                        </div>-->
+                        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                              <span class="navbar-toggler-icon"></span>
+                            </button>
+
+                            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                                <ul class="navbar-nav mr-auto" style="width: 100%;">
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="/">Inicio</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="/quienes-somos">Quienes somos</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="/nuestros-servicios">Nuestros servicios</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="/contactenos">Contáctenos</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="/galeria">Galería</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="/iniciar-sesion"><i class="fas fa-sign-in-alt"></i> Iniciar sesión</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </nav>
                     </div>
                 </div>
 

@@ -9,6 +9,7 @@ Use App\Http\Controllers\UtilsController;
 Use App\Http\Controllers\ProductsController;
 Use App\Http\Controllers\QuotationController;
 
+// ------------------------------------------------ Routes Website
 
 Route::get('/', function () {
     $destacados = ProductsController::getProducts([
@@ -65,7 +66,11 @@ Route::get('/registrarse', function() {
     ]);
 });
 
-// App
+Route::get('/galeria', function() {
+    return view('site.galeria');
+});
+
+// ------------------------------------------- Routes Internal App
 
 Route::get('/app/administrator', function() {
     return view('application.admin-home');
@@ -185,5 +190,5 @@ Route::get('/quotation-email', function () {
         'user' => json_decode($userData)
     ];
     return view('emails.quotationMailView', $details);
-    //\Mail::to('felipegarxon@hotmail.com')->send(new App\Mail\QuotationMail());   
+    //\Mail::to('felipegarxon@hotmail.com')->send(new App\Mail\QuotationMail());
 });
