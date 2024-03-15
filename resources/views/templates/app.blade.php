@@ -78,8 +78,8 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="/app/productos" class="nav-link">
-                    <i class="nav-icon far fa-image"></i> Productos
+                <a href="/app/servicios" class="nav-link">
+                    <i class="nav-icon far fa-image"></i> Servicios
                 </a>
             </li>
             <li class="nav-item">
@@ -87,11 +87,11 @@
                     <i class="nav-icon fas fa-users"></i> Clientes
                 </a>
             </li>
-            <li class="nav-item">
+            <!--<li class="nav-item">
                 <a href="/app/cotizaciones" class="nav-link">
                     <i class="nav-icon fas fa-list"></i> Cotizaciones
                 </a>
-            </li>
+            </li>-->
             <li class="nav-item">
                 <a href="/app/quienes-somos" class="nav-link">
                     <i class="nav-icon fas fa-sitemap"></i> Quienes somos

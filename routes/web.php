@@ -3,11 +3,11 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 
-Use App\Http\Controllers\CustomersController;
 Use App\Http\Controllers\ServicesController;
 Use App\Http\Controllers\UtilsController;
 Use App\Http\Controllers\ProductsController;
 Use App\Http\Controllers\QuotationController;
+Use App\Http\Controllers\CustomersController;
 
 // ------------------------------------------------ Routes Website
 
@@ -57,14 +57,14 @@ Route::get('/iniciar-sesion', function() {
     return view('site.iniciar-sesion');
 });
 
-Route::get('/registrarse', function() {
+/*Route::get('/registrarse', function() {
     $documentTypesList  = UtilsController::getAllDocumentTypes();
     $departmentsList    = UtilsController::getAllDepartments();
     return view('site.registrarse-como-cliente', [
         "documents"     => $documentTypesList,
         "departments"   => $departmentsList
     ]);
-});
+});*/
 
 Route::get('/galeria', function() {
     return view('site.galeria');
@@ -90,6 +90,22 @@ Route::get('/app/clientes/registrar', function() {
     return view('application.clientes.registrar', [
         "documents"     => $documentTypesList,
         "departments"   => $departmentsList
+    ]);
+});
+
+Route::get('/app/clientes/registrar-factura/{userId}', function($userId) {
+    $productLines = UtilsController::getProductLines();
+    $customerInfo = CustomersController::getCustomerById($userId);
+    return view('application.clientes.registrar-factura', [
+        "productLines" => $productLines,
+        "customerInfo" => $customerInfo
+    ]);
+});
+
+Route::get('/app/clientes/registrar-cotizacion/{userId}', function() {
+    $productLines = UtilsController::getProductLines();
+    return view('application.clientes.registrar-cotizacion', [
+        "productLines" => $productLines
     ]);
 });
 

@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 class CustomersController extends Controller
 {
     public static function getAllCustomers() {
-        $sql = "SELECT 
+        $sql = "SELECT
                 u.userId,
                 u.documentTypeId,
                 u.docNum,
@@ -23,7 +23,7 @@ class CustomersController extends Controller
                 u.status,
                 dt.abbreviation as docType,
                 p.name as profile
-                FROM user u 
+                FROM user u
                 INNER JOIN documentType dt ON dt.documentTypeId = u.documentTypeId
                 INNER JOIN profile p ON p.profileId = u.profileId
                 WHERE p.profileId = ?
@@ -39,15 +39,15 @@ class CustomersController extends Controller
         $docNum     = $data[1];
         $email      = $data[2];
 
-        $validation_1 = DB::select("SELECT COUNT(*) cant 
-                FROM user 
+        $validation_1 = DB::select("SELECT COUNT(*) cant
+                FROM user
                 WHERE documentTypeId = ?
                 AND docNum = ? ", [$docType, $docNum]);
 
         if($validation_1[0]->cant == 0){
 
-            $validation_2 = DB::select("SELECT COUNT(*) cant 
-                FROM user 
+            $validation_2 = DB::select("SELECT COUNT(*) cant
+                FROM user
                 WHERE email = ?", [$email]);
 
             if($validation_2[0]->cant == 0){
@@ -59,8 +59,8 @@ class CustomersController extends Controller
                 $response = [
                     "canContinue" => false,
                     "message" => "El correo electrónico ya se encuentra registrado en el sistema."
-                ];    
-            }         
+                ];
+            }
 
         }else{
             $response = [
@@ -92,7 +92,7 @@ class CustomersController extends Controller
         $customerValidation = CustomersController::customerValidation([$documentTypeId, $docNum, $email]);
 
         if($customerValidation['canContinue']){
-        
+
             $insert = DB::insert($sql, [
                 $documentTypeId,
                 $docNum,
@@ -137,12 +137,12 @@ class CustomersController extends Controller
         $address    = $params['address'];
         $userId     = $params['userId'];
 
-        $sql = "UPDATE user 
-                    SET `name`      = ?, 
+        $sql = "UPDATE user
+                    SET `name`      = ?,
                         `surname`   = ?,
                         `email`     = ?,
                         `phone`     = ?,
-                        `address`   = ? 
+                        `address`   = ?
                     WHERE userId    = ? ";
 
         $update = DB::update($sql, [$name,
@@ -166,5 +166,19 @@ class CustomersController extends Controller
         }
 
         return json_encode($response);
+    }
+
+    public static function getCustomerById(string $userId)
+    {
+        $sql = "SELECT
+            u.*,
+            dt.abbreviation,
+            c.name as cityName
+            FROM user u
+            INNER JOIN documenttype dt ON dt.documentTypeId = u.documentTypeId
+            INNER JOIN city c ON c.cityId = u.cityId
+            WHERE userId = ?";
+        $info = DB::select($sql, [$userId]);
+        return $info[0];
     }
 }

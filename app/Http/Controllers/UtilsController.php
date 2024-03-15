@@ -31,4 +31,10 @@ class UtilsController extends Controller
         return json_encode($list);
     }
 
+    public static function getProductLines() {
+        $sql = "SELECT * FROM productline WHERE status = ? ORDER BY `name` ASC";
+        $list = DB::select($sql, ["ACTIVO"]);
+        return $list;
+    }
+
 }

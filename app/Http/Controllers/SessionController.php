@@ -13,13 +13,13 @@ class SessionController extends Controller
 		$user = $params['user'];
 		$pass = $params['pass'];
 
-		$login = DB::select("SELECT COUNT(*) cant 
-							 FROM user  
-							 WHERE email = ? AND password = ?", [$user, $pass]);
+		$login = DB::select("SELECT COUNT(*) cant
+							 FROM user
+							 WHERE email = ? AND password = ? AND profileId = ?", [$user, $pass, 1]);
 
 		if($login[0]->cant > 0) {
 
-			$data = DB::select("SELECT 
+			$data = DB::select("SELECT
 								u.userId,
 								u.documentTypeId,
 								u.docNum,
@@ -33,10 +33,10 @@ class SessionController extends Controller
 								u.status,
 								dt.abbreviation as docType,
 								p.name as profile
-								FROM user u 
+								FROM user u
 								INNER JOIN documentType dt ON dt.documentTypeId = u.documentTypeId
 								INNER JOIN profile p ON p.profileId = u.profileId
-								WHERE email = ? 
+								WHERE email = ?
 								AND password = ?", [$user, $pass]);
 
 			$response = [
@@ -64,11 +64,11 @@ class SessionController extends Controller
 			case 1:
 				$route = '/app/administrator';
 				break;
-			
+
 			case 2:
 				$route = '/app/customer';
 				break;
-			
+
 			default:
 				$route = '/app/customer';
 				break;

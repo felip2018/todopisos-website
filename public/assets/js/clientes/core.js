@@ -3,7 +3,7 @@ function getAllCustomers(){
         url: `${HOST}/api/clients/`,
         success: function(response){
             let res = JSON.parse(response);
-            
+
             if(res.length > 0){
                 sessionStorage.setItem('listado-clientes', response);
                 renderCustomersList(res);
@@ -26,16 +26,24 @@ function renderCustomersList(list) {
     jQuery('#lista-clientes').html('');
     jQuery.each(list, function(index, value){
         let identificacion = value['docType'] + " - " + value['docNum'];
-        jQuery('#lista-clientes').append('<tr>'+
-            '<td>'+identificacion+'</td>'+
-            '<td>'+value['fullname']+'</td>'+
-            '<td>'+value['email']+'</td>'+
-            '<td>'+
-                '<button class="btn btn-primary m-1" title="Ver información" onclick=showCustomerData('+value['docNum']+')><i class="fa fa-eye"></i></button>'+
-                '<button class="btn btn-primary m-1" title="Crear factura"><i class="fas fa-file-invoice"></i></button>'+
-                '<button class="btn btn-primary m-1" title="Crear cotización"><i class="fas fa-list"></i></button>'+
-            '</td>'+
-        '</tr>');
+        jQuery('#lista-clientes').append(`
+            <tr>
+                <td>${identificacion}</td>
+                <td>${value['fullname']}</td>
+                <td>${value['email']}</td>
+                <td>
+                    <button class="btn btn-primary m-1" title="Ver información" onclick=showCustomerData('+value['docNum']+')>
+                        <i class="fa fa-eye"></i>
+                    </button>
+                    <a href="/app/clientes/registrar-factura/${value['userId']}" class="btn btn-info m-1" title="Crear factura">
+                        <i class="fas fa-file-invoice"></i>
+                    </a>
+                    <a href="/app/clientes/registrar-cotizacion/${value['userId']}" class="btn btn-warning m-1" title="Crear cotización">
+                        <i class="fas fa-list"></i>
+                    </a>
+                </td>
+            </tr>
+        `);
     });
 }
 
@@ -235,5 +243,27 @@ function saveCustomer(){
             }
         })
     }
+}
 
+function searchProducts() {
+    const productLineId = jQuery('#productLineId');
+    const productsField = jQuery('#productId');
+    productsField.html('');
+    if (productLineId.val()) {
+        jQuery.ajax({
+            type: "GET",
+            url: `${HOST}/api/get-product-by-product-line-id/${productLineId.val()}`,
+            success: function(response) {
+                const productsList = JSON.parse(response);
+                console.log(productsList);
+                productsField.append(`<option value="">-Seleccione</option>`);
+                jQuery.each(productsList, function(index, value) {
+                    productsField.append(`<option value="${value['productId']}">${value['name']}</option>`);
+                })
+            },
+            error: function(err){
+                console.log('[ERROR]', err);
+            }
+        })
+    }
 }

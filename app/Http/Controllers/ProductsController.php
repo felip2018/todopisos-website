@@ -18,7 +18,7 @@ class ProductsController extends Controller
 
             case 'BY_SERVICE':
                 // Consulta para la aplicación como administrador
-                $sql = "SELECT 
+                $sql = "SELECT
                     `productId`,
                     `productLineId`,
                     `name`,
@@ -26,14 +26,14 @@ class ProductsController extends Controller
                     `img`,
                     `outstanding`,
                     `status`
-                    FROM product 
+                    FROM product
                     WHERE productLineId = ?";
                 $select = DB::select($sql, [$productLineId]);
                 break;
 
             case 'BY_SERVICE_STATUS':
                 // Consulta para la pagina web
-                $sql = "SELECT 
+                $sql = "SELECT
                     `productId`,
                     `productLineId`,
                     `name`,
@@ -41,15 +41,15 @@ class ProductsController extends Controller
                     `img`,
                     `outstanding`,
                     `status`
-                    FROM product 
-                    WHERE productLineId = ? 
+                    FROM product
+                    WHERE productLineId = ?
                     AND `status` = ? ";
                 $select = DB::select($sql, [$productLineId, $status]);
                 break;
-            
+
             case 'OUTSTANDING':
-                // Consulta de destacados para la pagina web 
-                $sql = "SELECT 
+                // Consulta de destacados para la pagina web
+                $sql = "SELECT
                     `productId`,
                     `productLineId`,
                     `name`,
@@ -57,8 +57,8 @@ class ProductsController extends Controller
                     `img`,
                     `outstanding`,
                     `status`
-                    FROM product 
-                    WHERE outstanding = 'SI' 
+                    FROM product
+                    WHERE outstanding = 'SI'
                     AND `status` = ?";
                 $select = DB::select($sql, [$params['status']]);
                 break;
@@ -69,22 +69,22 @@ class ProductsController extends Controller
 
     public static function getProductById($productId) {
 
-        $product = DB::select("SELECT 
+        $product = DB::select("SELECT
                                 `productId`,
                                 `productLineId`,
                                 `name`,
                                 `description`,
                                 `img`,
                                 `outstanding`,
-                                `status` 
-                                FROM product 
+                                `status`
+                                FROM product
                                 WHERE productId = ?", [$productId]);
         return $product[0];
     }
 
     public static function insertProduct(Request $request) {
         $params = $request->all();
-        
+
         $productLineId  = $params['productLineId'];
         $name           = $params['name'];
         $description    = $params['description'];
@@ -95,10 +95,10 @@ class ProductsController extends Controller
         $target_file = $target_dir . basename($_FILES["img"]["name"]);
 
         if(move_uploaded_file($_FILES["img"]["tmp_name"], $target_file)) {
-            
+
             // Archivo cargado
             $img = $pathToUpload.'/'.$_FILES["img"]["name"];
-            
+
             $sql = "INSERT INTO product(`productLineId`,`name`,`description`,`img`,`outstanding`,`date`,`status`)VALUES(?,?,?,?,?,NOW(),'ACTIVO')";
 
 
@@ -127,21 +127,21 @@ class ProductsController extends Controller
                 "message" => "No fue posible cargar el archivo!"
             ];
         }
-        
+
 
         return json_encode($response);
     }
 
     public static function updateProductStatus(Request $request) {
         $params = $request->all();
-        
+
         $productId  = $params['productId'];
         $status         = $params['status'];
 
         $update = DB::update('UPDATE product
-                                     SET `status` = ? 
+                                     SET `status` = ?
                               WHERE productId = ?', [$status, $productId]);
-        
+
         if($update){
             $response = [
                 "status" => 200,
@@ -153,14 +153,14 @@ class ProductsController extends Controller
                 "message" => "No se ha realizado ninguna actualización"
             ];
         }
-        
+
         return json_encode($response);
     }
 
     public static function updateProduct(Request $request) {
-        
+
         $params = $request->all();
-        
+
         $productId      = $params['productId'];
         $name           = $params['name'];
         $description    = $params['description'];
@@ -201,7 +201,7 @@ class ProductsController extends Controller
                 $productId
             ]);
         }
-        
+
         if($update){
             $response = [
                 "status" => 201,
