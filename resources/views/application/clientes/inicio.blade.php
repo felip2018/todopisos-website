@@ -31,17 +31,19 @@
     </div>
     <div class="row">
         <div class="col-12">
-            <table class="table table-striped">
-                <thead class="thead-light">
-                    <th>Identificación</th>
-                    <th>Nombre</th>
-                    <th>Correo</th>
-                    <th>Opciones</th>
-                </thead>
-                <tbody id="lista-clientes">
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead class="thead-light">
+                        <th>Identificación</th>
+                        <th>Nombre</th>
+                        <th>Correo</th>
+                        <th>Opciones</th>
+                    </thead>
+                    <tbody id="lista-clientes">
 
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
     <script>

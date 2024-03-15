@@ -36,7 +36,7 @@
   <!-- jQuery UI 1.11.4 -->
   <script src="{{asset('assets/plugins/jquery-ui/jquery-ui.min.js')}}"></script>
 
-  
+
 
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -49,7 +49,7 @@
       <li class="nav-item">
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
-    </ul>    
+    </ul>
   </nav>
   <!-- /.navbar -->
 
@@ -57,7 +57,7 @@
   <aside class="main-sidebar sidebar-light-primary elevation-4">
     <!-- Brand Logo -->
     <a href="index3.html" class="brand-link">
-      <img src="{{asset('assets/img/logo_todopisos_webapp.png')}}" alt="Logo" width="100%">
+      <img src="{{asset('assets/img/logo_todopisos_alt.png')}}" alt="Logo" width="100%">
     </a>
 
     <!-- Sidebar -->
@@ -72,7 +72,36 @@
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false" id="menu-app">
-          
+            <li class="nav-item">
+                <a href="/app/administrator" class="nav-link">
+                    <i class="nav-icon fas fa-home"></i> Inicio
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="/app/productos" class="nav-link">
+                    <i class="nav-icon far fa-image"></i> Productos
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="/app/clientes" class="nav-link">
+                    <i class="nav-icon fas fa-users"></i> Clientes
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="/app/cotizaciones" class="nav-link">
+                    <i class="nav-icon fas fa-list"></i> Cotizaciones
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="/app/quienes-somos" class="nav-link">
+                    <i class="nav-icon fas fa-sitemap"></i> Quienes somos
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link" onclick="closeSession()">
+                    <i class="nav-icon fas fa-sign-out-alt"></i> Cerrar sesión
+                </a>
+            </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
@@ -129,52 +158,12 @@
 <script src="{{asset('assets/dist/js/adminlte.js')}}"></script>
 <script src="{{asset('assets/js/variables.js')}}"></script>
 <script>
-
   jQuery(document).ready(function(){
-    
-    jQuery('.modal').modal({backdrop: 'static', keyboard: false});
-    jQuery('.modal-title').html('Cargando.')
-    jQuery('.modal-body').html('');
-    jQuery('.modal-footer').html('');
-
-    const isLogin = validateSession();
-
-    if (isLogin) {
-      let userData = JSON.parse(sessionStorage.getItem('user-data'));
-      jQuery('#username').html(userData.name);
-      // Render menu
-      jQuery.ajax({
-        type:"POST",
-        url: `${HOST}/api/render-menu`,
-        data: {
-          profileId: userData.profileId
-        },
-        success: function(response) {
-          let res = JSON.parse(response);
-
-          jQuery('#menu-app').html('');
-          jQuery.each(res, function(index, value){
-            jQuery('#menu-app').append('<li class="nav-item">'+
-              '<a href="'+value.link+'" class="nav-link">'+
-                  '<i class="'+value.i_class+'"></i>'+
-                  '<p>'+value.name+'</p>'+
-              '</a>'+
-            '</li>');
-          });
-          jQuery('#menu-app').append('<li class="nav-item">'+
-            '<a href="#" class="nav-link" onclick="closeSession()">'+
-                '<i class="nav-icon fas fa-sign-out-alt"></i>'+
-                '<p>CERRAR SESIÓN</p>'+
-            '</a>'+
-          '</li>')
-        }
-      })
-
-      jQuery('.modal').modal('toggle');
-    } else {
-      closeSession();
-    }
-  })
+      const isLogin = validateSession();
+      if (!isLogin) {
+          closeSession();
+      }
+  });
 </script>
 
 <!--CORE-->
