@@ -80,12 +80,14 @@
             <div class="table-responsive">
                 <table class="table table-striped">
                     <thead class="thead-light">
-                        <th></th>
-                        <th>No.</th>
-                        <th>Descripción</th>
-                        <th>Valor Unit</th>
-                        <th>Cantidad</th>
-                        <th>Subtotal</th>
+                        <tr>
+                            <th></th>
+                            <th>No.</th>
+                            <th>Descripción</th>
+                            <th>Valor Unit</th>
+                            <th>Cantidad</th>
+                            <th>Subtotal</th>
+                        </tr>
                     </thead>
                     <tbody id="lista-productos">
                     </tbody>
