@@ -23,7 +23,7 @@ Route::post('service-insert', [ServicesController::class, 'insertService']);
 Route::post('service-update', [ServicesController::class, 'updateService']);
 Route::post('service-status', [ServicesController::class, 'updateServiceStatus']);
 
-// Products
+// Product
 Route::post('product-insert',   [ProductsController::class, 'insertProduct']);
 Route::post('product-update',   [ProductsController::class, 'updateProduct']);
 Route::post('product-status',   [ProductsController::class, 'updateProductStatus']);
@@ -36,6 +36,7 @@ Route::get('get-product-by-product-line-id/{productLineId}', function(string $pr
     ]);
     return json_encode($productos);
 });
+Route::get('get-product-lines', [ProductsController::class, 'getProductLines']);
 
 // Quotation
 Route::post('quotation-insert',     [QuotationController::class, 'saveQuotation']);

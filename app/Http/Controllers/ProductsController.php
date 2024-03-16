@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-Use App\Models\Clientes;
+Use App\Models\ProductLine;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -215,5 +215,13 @@ class ProductsController extends Controller
         }
 
         return json_encode($response);
+    }
+
+    public static function getProductLines() {
+        $result = ProductLine::where("status", "ACTIVO")->with("products")->get();
+        return response()->json([
+            "status" => 200,
+            "response" => $result
+        ], 200);
     }
 }

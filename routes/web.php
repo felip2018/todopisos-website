@@ -93,12 +93,24 @@ Route::get('/app/clientes/registrar', function() {
     ]);
 });
 
-Route::get('/app/clientes/registrar-factura/{userId}', function($userId) {
-    $productLines = UtilsController::getProductLines();
+Route::get('/app/clientes/registrar-remision-cotizacion/{type}/{userId}', function($type, $userId) {
+
+    $required_types = array("1", "2");
+    if (!in_array($type, $required_types)) {
+        return view('application.error', [
+           "error_message" => "Falta el parámetro de tipo para identificar el documento, vuelva a la sección de clientes!"
+        ]);
+    }
+    if (!$userId) {
+        return view('application.error', [
+            "error_message" => "Falta el parámetro de usuario para identificar al cliente, vuelva a la sección de clientes!"
+        ]);
+    }
+
     $customerInfo = CustomersController::getCustomerById($userId);
     return view('application.clientes.registrar-factura', [
-        "productLines" => $productLines,
-        "customerInfo" => $customerInfo
+        "customerInfo" => $customerInfo,
+        "type" => $type
     ]);
 });
 

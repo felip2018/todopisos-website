@@ -35,10 +35,10 @@ function renderCustomersList(list) {
                     <button class="btn btn-primary m-1" title="Ver información" onclick=showCustomerData('+value['docNum']+')>
                         <i class="fa fa-eye"></i>
                     </button>
-                    <a href="/app/clientes/registrar-factura/${value['userId']}" class="btn btn-info m-1" title="Crear factura">
+                    <a href="/app/clientes/registrar-remision-cotizacion/1/${value['userId']}" class="btn btn-info m-1" title="Crear remisión">
                         <i class="fas fa-file-invoice"></i>
                     </a>
-                    <a href="/app/clientes/registrar-cotizacion/${value['userId']}" class="btn btn-warning m-1" title="Crear cotización">
+                    <a href="/app/clientes/registrar-remision-cotizacion/2/${value['userId']}" class="btn btn-warning m-1" title="Crear cotización">
                         <i class="fas fa-list"></i>
                     </a>
                 </td>
@@ -245,25 +245,146 @@ function saveCustomer(){
     }
 }
 
+function searchProductLines() {
+    const productLinesField = jQuery("#productLineId");
+    jQuery.ajax({
+        type: "GET",
+        url: `${HOST}/api/get-product-lines`,
+        success: function(res) {
+            const productLines = res.response;
+            sessionStorage.setItem("product-lines", JSON.stringify(productLines));
+            productLinesField.append(`<option value="">-Seleccione</option>`);
+            jQuery.each(productLines, function(index, value) {
+                productLinesField.append(`<option value="${value['productLineId']}">${value['name']}</option>`);
+            });
+        },
+        error: function(err){
+            console.log('[ERROR]', err);
+        }
+    })
+}
+
 function searchProducts() {
-    const productLineId = jQuery('#productLineId');
-    const productsField = jQuery('#productId');
+    const productLineId = jQuery("#productLineId");
+    const productsField = jQuery("#productId");
     productsField.html('');
     if (productLineId.val()) {
-        jQuery.ajax({
-            type: "GET",
-            url: `${HOST}/api/get-product-by-product-line-id/${productLineId.val()}`,
-            success: function(response) {
-                const productsList = JSON.parse(response);
-                console.log(productsList);
-                productsField.append(`<option value="">-Seleccione</option>`);
-                jQuery.each(productsList, function(index, value) {
-                    productsField.append(`<option value="${value['productId']}">${value['name']}</option>`);
-                })
-            },
-            error: function(err){
-                console.log('[ERROR]', err);
-            }
-        })
+        const productLines = JSON.parse(sessionStorage.getItem("productLines"));
+        const line = productLines.find((pl) => pl.productLineId == productLineId.val());
+        productsField.append(`<option value="">-Seleccione</option>`);
+        jQuery.each(line.products, function(index, value) {
+            productsField.append(`<option value="${value['productId']}">${value['name']}</option>`);
+        });
+    }
+}
+
+function addProduct() {
+    const productLineId = jQuery("#productLineId");
+    const productId = jQuery("#productId");
+    const productDescription = jQuery("#productDescription");
+    let quantity = jQuery("#quantity");
+    let price = jQuery("#price");
+
+    let fields = [productLineId, productId, quantity, price];
+    let errors = [];
+
+    for(i=0; i < fields.length; i++){
+        let valor = fields[i].val();
+
+        if(valor === ''){
+            errors.push(`El campo <b>${fields[i].attr('lbl')}</b> es obligatorio.`)
+        }
+    }
+    if(errors.length > 0){
+        let alert = '<div class="alert alert-danger"><ul>';
+        jQuery.each(errors, function(index, item){
+            alert += '<li>'+item+'</li>';
+        });
+        alert += '</ul></div>';
+        jQuery('#add-product-alert').html(alert);
+    }else {
+        const productLines = JSON.parse(sessionStorage.getItem("productLines"));
+        const line = productLines.find((pl) => pl.productLineId == productLineId.val());
+        const product = line.products.find((p) => p.productId == productId.val());
+
+        quantity = Number(quantity.val());
+        price = Number(price.val());
+
+        const productToAdd = {
+            product,
+            description: productDescription.val(),
+            quantity,
+            price,
+            subtotal: (price * quantity)
+        }
+
+        console.log('productToAdd: ', productToAdd);
+        if (!validateIfProductExists(productToAdd.product.productId)) {
+            addProductToStorage(productToAdd);
+            renderProductsFromStorage();
+        }
+    }
+}
+
+function validateIfProductExists(productId) {
+    const storage = sessionStorage.getItem("elements");
+    if (!storage) {
+        return false;
+    }
+    const productsList = JSON.parse(storage);
+    const exists = productsList.find((element) => element.product.productId == productId);
+    return Boolean(exists);
+}
+
+function addProductToStorage(productToAdd) {
+    const storage = sessionStorage.getItem("elements");
+    if (!storage) {
+        sessionStorage.setItem("elements", JSON.stringify([productToAdd]));
+        return;
+    }
+    const productsList = JSON.parse(storage);
+    productsList.push(productToAdd);
+    sessionStorage.setItem("elements", JSON.stringify(productsList));
+    return;
+}
+
+function removeProductFromStorage(index) {
+    const productsList = JSON.parse(sessionStorage.getItem("elements"));
+    productsList.splice(index, 1);
+    sessionStorage.setItem("elements", JSON.stringify(productsList));
+    renderProductsFromStorage();
+    return;
+}
+
+let COP = new Intl.NumberFormat('es-ES', {
+    style: 'currency',
+    currency: 'COP',
+});
+function renderProductsFromStorage() {
+    const storage = sessionStorage.getItem("elements");
+    if (storage) {
+        const productsList = JSON.parse(storage);
+        const tbody = jQuery("#lista-productos");
+        tbody.html("");
+        let total = 0;
+        jQuery.each(productsList, function (index, value) {
+            tbody.append(`<tr>
+                <td>
+                    <button class="btn btn-danger" title="Eliminar producto de la lista" onclick="removeProductFromStorage(${index})">
+                        <i class="fa fa-trash"></i>
+                    </button>
+                </td>
+                <td>${index + 1}</td>
+                <td>
+                    ${value["product"]["name"]}<br>
+                    [${value["description"]}]
+                </td>
+                <td>${COP.format(value["price"])}</td>
+                <td>${value["quantity"]}</td>
+                <td>${COP.format(value["subtotal"])}</td>
+            </tr>`);
+            total += value["subtotal"];
+        });
+        jQuery("#total").html(`<span>${COP.format(total)}</span>`);
     }
 }
