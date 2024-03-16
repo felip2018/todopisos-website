@@ -121,17 +121,17 @@
                     <hr>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-4">
-                    <button class="btn btn-primary btn-block">
+                    <button class="btn btn-primary btn-block m-2">
                         <i class="fa fa-save"></i> Guardar documento
                     </button>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-4">
-                    <button class="btn btn-info btn-block">
+                    <button class="btn btn-info btn-block m-2">
                         <i class="fa fa-print"></i> Imprimir
                     </button>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-4">
-                    <button class="btn btn-warning btn-block">
+                    <button class="btn btn-warning btn-block m-2">
                         <i class="fa fa-paper-plane"></i> Enviar por correo
                     </button>
                 </div>
