@@ -6,8 +6,11 @@
     <div class="row">
         <div class="col-12">
             <div class="section-title">
-                Clientes
+                Bienvenid@ has iniciado sesion como ADMINISTRADOR
             </div>
+            <!--<div class="section-title">
+                Clientes registrados
+            </div>-->
             <div class="alert alert-info">
                 En esta sección podrá observar el listado de clientes registrados en el sistema asi como realizar nuevos registros.
             </div>

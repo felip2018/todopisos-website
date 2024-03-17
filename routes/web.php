@@ -1,13 +1,13 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Session;
 
 Use App\Http\Controllers\ServicesController;
 Use App\Http\Controllers\UtilsController;
 Use App\Http\Controllers\ProductsController;
 Use App\Http\Controllers\QuotationController;
 Use App\Http\Controllers\CustomersController;
+Use \App\Models\Gallery;
 
 // ------------------------------------------------ Routes Website
 
@@ -73,7 +73,8 @@ Route::get('/galeria', function() {
 // ------------------------------------------- Routes Internal App
 
 Route::get('/app/administrator', function() {
-    return view('application.admin-home');
+    //return view('application.admin-home');
+    return view('application.clientes.inicio');
 });
 
 Route::get('/app/customer', function() {
@@ -158,6 +159,11 @@ Route::get('/app/servicios/productos/{productLineId}', function($productLineId) 
 Route::get('/app/quienes-somos', function() {
     $data = json_decode(file_get_contents('assets/page_data/quienes-somos.json'));
     return view('application.quienes-somos', ["data" => $data]);
+});
+
+Route::get('/app/galeria', function() {
+    $data = Gallery::whereIn("status", ["ACTIVO", "INACTIVO"])->get();
+    return view('application.galeria.inicio', ["data" => $data]);
 });
 
 Route::get('/app/cotizaciones', function() {

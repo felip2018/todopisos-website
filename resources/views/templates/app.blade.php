@@ -82,11 +82,11 @@
                     <i class="nav-icon far fa-image"></i> Servicios
                 </a>
             </li>
-            <li class="nav-item">
+            <!--<li class="nav-item">
                 <a href="/app/clientes" class="nav-link">
                     <i class="nav-icon fas fa-users"></i> Clientes
                 </a>
-            </li>
+            </li>-->
             <!--<li class="nav-item">
                 <a href="/app/cotizaciones" class="nav-link">
                     <i class="nav-icon fas fa-list"></i> Cotizaciones
@@ -95,6 +95,11 @@
             <li class="nav-item">
                 <a href="/app/quienes-somos" class="nav-link">
                     <i class="nav-icon fas fa-sitemap"></i> Quienes somos
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="/app/galeria" class="nav-link">
+                    <i class="nav-icon fas fa-images"></i> Galería
                 </a>
             </li>
             <li class="nav-item">
@@ -171,6 +176,7 @@
 <script src="{{ asset('assets/js/clientes/core.js')}}"></script>
 <script src="{{ asset('assets/js/servicios/core.js')}}"></script>
 <script src="{{ asset('assets/js/productos/core.js')}}"></script>
+<script src="{{ asset('assets/js/galeria/core.js')}}"></script>
 <script src="{{ asset('assets/js/quienes-somos.js')}}"></script>
 <script src="{{ asset('assets/js/quotation.js')}}"></script>
 </body>

@@ -3,26 +3,14 @@
 @extends('templates.website')
 
 @section('content')
-    <div class="row">
+    <div class="row section">
         <div class="col-12">
             <div class="section-title">
                 Galeria
             </div>
-            <div class="alert alert-info">
-                Galería de imágenes
-            </div>
-
         </div>
     </div>
-
-
-
-
-
-
     <section id="galeria" class="container">
-
-
         <div class="row">
             <div class="col-lg-4 col-md-6 col-sm-12">
                 <img src=" {{asset('assets/img/imagenes/piso-1.png')}}" alt="imagen 1">
@@ -52,9 +40,5 @@
                 <img src=" {{asset('assets/img/imagenes/piso-9.png')}}" alt="imagen 9">
             </div>
         </div>
-
     </section>
-
-
-
 @endsection

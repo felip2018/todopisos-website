@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 Use App\Http\Controllers\CustomersController;
@@ -50,6 +49,9 @@ Route::post('render-menu',      [MenuController::class, 'getMenuByProfileId']);
 // Utils
 Route::post('get-cities-by-deparment-id',   [UtilsController::class, 'getCitiesByDepartmentId']);
 Route::post('image-upload',                 [ImageUploadController::class, 'imageUploadPost']);
+
+Route::post('upload-image-to-gallery',  [ImageUploadController::class, 'uploadImage']);
+Route::post('delete-image',             [ImageUploadController::class, 'deleteImage']);
 
 // AboutUs
 Route::post('update-about-data',    [AboutUsController::class, 'updateAboutData']);

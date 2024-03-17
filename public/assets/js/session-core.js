@@ -34,7 +34,6 @@ function login(){
             },
             success: function(response){
                 let res = JSON.parse(response);
-                console.log('LOGIN RESPONSE > ', res);
                 if(res.status == 200){
                     const userData = res.data[0];
                 	// guardar session storage y redireccionar a la aplicacion

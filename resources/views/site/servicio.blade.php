@@ -20,14 +20,11 @@
                         <div class="card-body">
                             <h5 class="card-title">{{$p->name}}</h5>
                             <p class="card-text">{{$p->description}}</p>
-                            <button class="btn btn-primary btn-block" onclick="addProductToQuotation({{$p->productId}},'{{$p->name}}','{{$p->img}}')">
-                                <i class="fa fa-plus"></i> Agregar a cotización
-                            </button>
                         </div>
                     </div>
                 </div>
             </div>
         @endforeach
     </div>
-    
+
 @endsection
