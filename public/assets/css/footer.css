@@ -1,0 +1,15 @@
+footer {
+    padding: 10px;
+    background: #333333;
+    color: #ffffff;
+    font-family: Montserrat, sans-serif;
+}
+
+.clickeable {
+    padding: 10px;
+}
+
+.clickeable:hover {
+    cursor: pointer;
+    border:1px solid #ffffff;
+}

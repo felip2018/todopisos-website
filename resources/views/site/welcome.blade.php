@@ -27,7 +27,7 @@
                 <div class="col-12">
                     <div class="lady">
                         <img src="{{asset('assets/img/miss.jpg')}}" alt="Lady" width="100%">
-                    </div>                    
+                    </div>
                 </div>
             </div>
         </div>
@@ -42,10 +42,10 @@
                             <b>{{$destacado->name}}</b>
                             <hr>
                             <img src="{{asset($destacado->img)}}" alt="{{$destacado->img}}">
-                            <hr>
+                            <!--<hr>
                             <button class="btn btn-primary btn-block" onclick="addProductToQuotation({{$destacado->productId}},'{{$destacado->name}}','{{$destacado->img}}')">
                                 <i class="fa fa-plus"></i> Agregar a cotización
-                            </button>
+                            </button>-->
                         </div>
                     @endforeach
                 </div>

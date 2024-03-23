@@ -74,37 +74,27 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false" id="menu-app">
             <li class="nav-item">
                 <a href="/app/administrator" class="nav-link">
-                    <i class="nav-icon fas fa-home"></i> Inicio
+                    <i class="fas fa-home"></i> <p>Inicio</p>
                 </a>
             </li>
             <li class="nav-item">
                 <a href="/app/servicios" class="nav-link">
-                    <i class="nav-icon far fa-image"></i> Servicios
+                    <i class="far fa-image"></i> <p>Servicios</p>
                 </a>
             </li>
-            <!--<li class="nav-item">
-                <a href="/app/clientes" class="nav-link">
-                    <i class="nav-icon fas fa-users"></i> Clientes
-                </a>
-            </li>-->
-            <!--<li class="nav-item">
-                <a href="/app/cotizaciones" class="nav-link">
-                    <i class="nav-icon fas fa-list"></i> Cotizaciones
-                </a>
-            </li>-->
             <li class="nav-item">
                 <a href="/app/quienes-somos" class="nav-link">
-                    <i class="nav-icon fas fa-sitemap"></i> Quienes somos
+                    <i class="fas fa-sitemap"></i> <p>Quienes somos</p>
                 </a>
             </li>
             <li class="nav-item">
                 <a href="/app/galeria" class="nav-link">
-                    <i class="nav-icon fas fa-images"></i> Galería
+                    <i class="fas fa-images"></i> <p>Galería</p>
                 </a>
             </li>
             <li class="nav-item">
                 <a href="#" class="nav-link" onclick="closeSession()">
-                    <i class="nav-icon fas fa-sign-out-alt"></i> Cerrar sesión
+                    <i class="fas fa-sign-out-alt"></i> <p>Cerrar sesión</p>
                 </a>
             </li>
         </ul>
@@ -174,6 +164,7 @@
 <!--CORE-->
 <script src="{{ asset('assets/js/session-core.js')}}"></script>
 <script src="{{ asset('assets/js/clientes/core.js')}}"></script>
+<script src="{{ asset('assets/js/clientes/handleDocument.js')}}"></script>
 <script src="{{ asset('assets/js/servicios/core.js')}}"></script>
 <script src="{{ asset('assets/js/productos/core.js')}}"></script>
 <script src="{{ asset('assets/js/galeria/core.js')}}"></script>

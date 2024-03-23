@@ -7,7 +7,8 @@ Use App\Http\Controllers\UtilsController;
 Use App\Http\Controllers\ProductsController;
 Use App\Http\Controllers\QuotationController;
 Use App\Http\Controllers\CustomersController;
-Use \App\Models\Gallery;
+Use App\Models\Gallery;
+Use App\Models\Document;
 
 // ------------------------------------------------ Routes Website
 
@@ -57,17 +58,11 @@ Route::get('/iniciar-sesion', function() {
     return view('site.iniciar-sesion');
 });
 
-/*Route::get('/registrarse', function() {
-    $documentTypesList  = UtilsController::getAllDocumentTypes();
-    $departmentsList    = UtilsController::getAllDepartments();
-    return view('site.registrarse-como-cliente', [
-        "documents"     => $documentTypesList,
-        "departments"   => $departmentsList
-    ]);
-});*/
-
 Route::get('/galeria', function() {
-    return view('site.galeria');
+    $data = Gallery::where("status", "ACTIVO")->orderBy("galeryImageId", "desc")->get();
+    return view('site.galeria', [
+        "data" => $data
+    ]);
 });
 
 // ------------------------------------------- Routes Internal App
@@ -94,8 +89,7 @@ Route::get('/app/clientes/registrar', function() {
     ]);
 });
 
-Route::get('/app/clientes/registrar-remision-cotizacion/{type}/{userId}', function($type, $userId) {
-
+Route::get('/app/clientes/registrar-documento/{type}/{userId}', function($type, $userId) {
     $required_types = array("1", "2");
     if (!in_array($type, $required_types)) {
         return view('application.error', [
@@ -107,7 +101,6 @@ Route::get('/app/clientes/registrar-remision-cotizacion/{type}/{userId}', functi
             "error_message" => "Falta el parámetro de usuario para identificar al cliente, vuelva a la sección de clientes!"
         ]);
     }
-
     $customerInfo = CustomersController::getCustomerById($userId);
     return view('application.clientes.registrar-factura', [
         "customerInfo" => $customerInfo,
@@ -115,10 +108,23 @@ Route::get('/app/clientes/registrar-remision-cotizacion/{type}/{userId}', functi
     ]);
 });
 
-Route::get('/app/clientes/registrar-cotizacion/{userId}', function() {
-    $productLines = UtilsController::getProductLines();
-    return view('application.clientes.registrar-cotizacion', [
-        "productLines" => $productLines
+Route::get('/app/clientes/ver-documentos/{userId}', function($userId) {
+    $customerInfo = CustomersController::getCustomerById($userId);
+    $documents = Document::where("userId", $userId)->get();
+    return view('application.clientes.ver-documentos', [
+        "customerInfo" => $customerInfo,
+        "documents" => $documents
+    ]);
+});
+
+Route::get('/app/clientes/ver-detalle-documento-imprimir/{documentId}', function($documentId) {
+    $data = Document::where("idDocument", $documentId)
+        ->with("user")
+        ->with("productsList", function($q) {
+            $q->with("product");
+        })->first();
+    return view('application.clientes.ver-detalle-documento-imprimir', [
+        "data" => $data
     ]);
 });
 
@@ -166,63 +172,14 @@ Route::get('/app/galeria', function() {
     return view('application.galeria.inicio', ["data" => $data]);
 });
 
-Route::get('/app/cotizaciones', function() {
-    $quotations = QuotationController::getAllQuotations();
-    return view('application.cotizacion.inicio', [
-        "quotations" => $quotations
+Route::get('/send-document-by-email/{documentId}', function ($documentId) {
+    $data = Document::where("idDocument", $documentId)
+        ->with("user")
+        ->with("productsList", function($q) {
+            $q->with("product");
+        })->first();
+    return view('emails.document', [
+        "data" => $data
     ]);
-});
-
-Route::get('/app/cotizacion/{quotationId}', function($quotationId) {
-    $data = QuotationController::getQuotationById($quotationId);
-    return view('application.cotizacion.responder-cotizacion', [
-        'data' => $data
-    ]);
-});
-
-
-Route::get('/app/mis-cotizaciones', function() {
-    return view('application.cotizacion.mis-cotizaciones');
-});
-
-Route::get('/app/mis-facturas', function() {
-    return view('application.cotizacion.mis-facturas');
-});
-
-Route::get('/quotation-email', function () {
-    $userData = '{
-        "userId": 77,
-        "documentTypeId": 1,
-        "docNum": 385484,
-        "profileId": 2,
-        "name": "JOSE",
-        "surname": "PEÑUELA",
-        "email": "josep@hotmail.com",
-        "phone": "3114529566",
-        "fullname": "JOSE PEÑUELA",
-        "address": "CRA 1E # 36 - 50",
-        "status": "ACTIVO",
-        "docType": "CC",
-        "profile": "CLIENTE"
-    }';
-
-    $details = [
-        'title' => 'Todopisos & Cortinas',
-        'body' => 'Se ha registrado la siguiente solicitud de cotización:',
-        'products' => [
-            [
-                'productId' => 1,
-                'name' => 'Producto 1',
-                'comment' => 'Comentario del producto 1'
-            ],
-            [
-                'productId' => 2,
-                'name' => 'Producto 2',
-                'comment' => 'Comentario del producto 2'
-            ]
-        ],
-        'user' => json_decode($userData)
-    ];
-    return view('emails.quotationMailView', $details);
     //\Mail::to('felipegarxon@hotmail.com')->send(new App\Mail\QuotationMail());
 });

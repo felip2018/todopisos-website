@@ -8,12 +8,12 @@ function getAllCustomers(){
                 sessionStorage.setItem('listado-clientes', response);
                 renderCustomersList(res);
             } else {
-                jQuery('#lista-clientes').html('<tr>'+
-                    '<td>--</td>'+
-                    '<td>--</td>'+
-                    '<td>--</td>'+
-                    '<td>--</td>'+
-                '</tr>');
+                jQuery('#lista-clientes').html(`<tr>
+                    <td>--</td>
+                    <td>--</td>
+                    <td>--</td>
+                    <td>--</td>
+                </tr>`);
             }
         },
         error: function(err){
@@ -32,14 +32,17 @@ function renderCustomersList(list) {
                 <td>${value['fullname']}</td>
                 <td>${value['email']}</td>
                 <td>
-                    <button class="btn btn-primary m-1" title="Ver información" onclick=showCustomerData('+value['docNum']+')>
+                    <button class="btn btn-primary m-1" title="Ver información" onclick=showCustomerData(${value['docNum']})>
                         <i class="fa fa-eye"></i>
                     </button>
-                    <a href="/app/clientes/registrar-remision-cotizacion/1/${value['userId']}" class="btn btn-info m-1" title="Crear remisión">
+                    <a href="/app/clientes/registrar-documento/1/${value['userId']}" class="btn btn-info m-1" title="Crear remisión">
                         <i class="fas fa-file-invoice"></i>
                     </a>
-                    <a href="/app/clientes/registrar-remision-cotizacion/2/${value['userId']}" class="btn btn-warning m-1" title="Crear cotización">
+                    <a href="/app/clientes/registrar-documento/2/${value['userId']}" class="btn btn-warning m-1" title="Crear cotización">
                         <i class="fas fa-list"></i>
+                    </a>
+                    <a href="/app/clientes/ver-documentos/${value['userId']}" class="btn btn-secondary m-1" title="Ver historial">
+                        <i class="fas fa-history"></i>
                     </a>
                 </td>
             </tr>
@@ -269,7 +272,7 @@ function searchProducts() {
     const productsField = jQuery("#productId");
     productsField.html('');
     if (productLineId.val()) {
-        const productLines = JSON.parse(sessionStorage.getItem("productLines"));
+        const productLines = JSON.parse(sessionStorage.getItem("product-lines"));
         const line = productLines.find((pl) => pl.productLineId == productLineId.val());
         productsField.append(`<option value="">-Seleccione</option>`);
         jQuery.each(line.products, function(index, value) {
@@ -303,7 +306,7 @@ function addProduct() {
         alert += '</ul></div>';
         jQuery('#add-product-alert').html(alert);
     }else {
-        const productLines = JSON.parse(sessionStorage.getItem("productLines"));
+        const productLines = JSON.parse(sessionStorage.getItem("product-lines"));
         const line = productLines.find((pl) => pl.productLineId == productLineId.val());
         const product = line.products.find((p) => p.productId == productId.val());
 
@@ -318,7 +321,6 @@ function addProduct() {
             subtotal: (price * quantity)
         }
 
-        console.log('productToAdd: ', productToAdd);
         if (!validateIfProductExists(productToAdd.product.productId)) {
             addProductToStorage(productToAdd);
             renderProductsFromStorage();
@@ -385,6 +387,74 @@ function renderProductsFromStorage() {
             </tr>`);
             total += value["subtotal"];
         });
-        jQuery("#total").html(`<span>${COP.format(total)}</span>`);
+        // jQuery("#total").html(`<span>${COP.format(total)}</span>`);
+        jQuery("#total").val(total);
+        jQuery("#total_f").html(`${COP.format(total)}`);
+        calculateTotalPayment();
     }
+}
+
+function calculateTotalPayment() {
+    const total_f =  jQuery("#total");
+    const advancement_f = jQuery("#advancement");
+    const total_pay_f = jQuery("#total_pay_f");
+    total_pay_f.val("");
+    if (total_f.val() !== "" && (advancement_f.val() !== "" || advancement_f.val() !== "0")) {
+        const total = parseInt(total_f.val());
+        const advc = parseInt(advancement_f.val());
+        const totalPayment = total-advc;
+        total_pay_f.html(`${COP.format(totalPayment)}`);
+    }
+}
+
+function getProductsList() {
+    const alert = jQuery("#form-alert");
+    alert.html("");
+    if (!sessionStorage.getItem("elements") ||
+        JSON.parse(sessionStorage.getItem("elements").length === 0)) {
+        alert.html(`<div class='alert alert-warning'>
+            <p>Debe agregar elementos a la lista</p>
+        </div>`);
+        return;
+    }
+    const productsList = JSON.parse(sessionStorage.getItem("elements"));
+    return productsList;
+}
+
+function saveDocument() {
+    const userId_f  = jQuery("#userId");
+    const type_f    = jQuery("#type");
+    const total_f   = jQuery("#total");
+    const obs_f     = jQuery("#observations");
+    const adv_f     = jQuery("#advancement");
+
+    const alert = jQuery("#form-alert");
+    alert.html("");
+
+    const products  = getProductsList();
+
+    const formData = new FormData();
+    formData.append("userId", userId_f.val());
+    formData.append("type", type_f.val());
+    formData.append("total", total_f.val());
+    formData.append("observations", obs_f.val());
+    formData.append("advancement", adv_f.val());
+    formData.append("products", JSON.stringify(products));
+
+    jQuery.ajax({
+        type: "POST",
+        url: `${HOST}/api/save-document`,
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function(res) {
+            console.log('saveDocument.res: ', res);
+            sessionStorage.clear("elements");
+            window.open(`/app/clientes/ver-documentos/${userId_f.val()}`, "_self");
+        },
+        error: function(err){
+            console.log('[ERROR]', err);
+        }
+    })
+
 }

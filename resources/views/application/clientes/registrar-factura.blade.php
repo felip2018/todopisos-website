@@ -69,6 +69,8 @@
             <hr>-->
             <label>Datos del cliente</label><br>
             <div id="datos-cliente">
+                <input type="hidden" id="userId" value="{{$customerInfo->userId}}">
+                <input type="hidden" id="type" value="{{$type}}">
                 <p>
                     Nombre: {{$customerInfo->name}} {{$customerInfo->surname}}<br>
                     Identificación: {{$customerInfo->abbreviation}} {{$customerInfo->docNum}}<br>
@@ -98,41 +100,56 @@
                             <th></th>
                             <th></th>
                             <th>Total</th>
-                            <th id="total"></th>
+                            <th>
+                                <input type="hidden" id="total" disabled="true">
+                                <label id="total_f"></label>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th>Abono (-)</th>
+                            <th>
+                                @if($type == "1")
+                                    <input type="number" class="form-control" id="advancement" value="0" onkeyup="calculateTotalPayment()">
+                                @else
+                                    <input type="number" class="form-control" id="advancement" value="0" disabled="true">
+                                @endif
+                            </th>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th>Total a pagar</th>
+                            <th>
+                                <input type="hidden" id="total_payment" disabled="true">
+                                <label id="total_pay_f"></label>
+                            </th>
                         </tr>
                     </tfoot>
                 </table>
             </div>
             <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-3">
-                    <label>Abono</label>
-                    <input type="number" class="form-control" id="advancement" value="0">
-                </div>
-            </div>
-            <div class="row">
                 <div class="col-12">
                     <label>Observaciones</label>
-                    <?php $default_txt = "- Instalación:\n- Transporte:\n- Adicionales:"; ?>
+                    <?php
+                            $default_txt = $type == "1" ? "- Instalación:\n- Transporte:\n- Adicionales:" : "- Cotización: \n";
+                        ?>
                     <textarea class="form-control" id="observations" rows="4" style="text-align: left">{{$default_txt}}</textarea>
                 </div>
             </div>
             <div class="row">
                 <div class="col-12">
                     <hr>
+                    <div id="form-alert"></div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-4">
-                    <button class="btn btn-primary btn-block m-2">
+                    <button class="btn btn-primary btn-block m-2" onclick="saveDocument()">
                         <i class="fa fa-save"></i> Guardar documento
-                    </button>
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-4">
-                    <button class="btn btn-info btn-block m-2">
-                        <i class="fa fa-print"></i> Imprimir
-                    </button>
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-4">
-                    <button class="btn btn-warning btn-block m-2">
-                        <i class="fa fa-paper-plane"></i> Enviar por correo
                     </button>
                 </div>
             </div>

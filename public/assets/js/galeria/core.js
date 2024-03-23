@@ -36,7 +36,7 @@ function uploadImage(){
             contentType: false,
             processData: false,
             success: function(response){
-                console.log('[SUCCESS] ',response);
+                window.open("/app/galeria", "_self");
             },
             error: function(err){
                 console.log('[ERROR] ', err);
@@ -48,4 +48,31 @@ function uploadImage(){
 function validateImgField(file_f) {
     console.log('validateImgField.file_f: ', file_f[0].files);
     return file_f[0].files.length > 0;
+}
+
+function removeGalleryImage(galeryImageId, url) {
+    jQuery('.modal').modal({backdrop: 'static', keyboard: false});
+    jQuery('.modal-title').html('Eliminar imagen')
+    jQuery('.modal-body').html(`<p>Confirme si desea eliminar la imágen de la galería</p>`);
+    jQuery('.modal-footer').html('<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button><button type="button" class="btn btn-danger btn-accept"><i class="fa fa-trash"></i> Si, eliminar</button>');
+
+    jQuery('.btn-accept').click(function(){
+        jQuery.ajax({
+            type: "POST",
+            url: `${HOST}/api/delete-image`,
+            data: {
+                galeryImageId,
+                url
+            },
+            success: function(res){
+                console.log('Response: ', res.response);
+                if (res.response === 1) {
+                    window.open("/app/galeria", "_self");
+                }
+            },
+            error: function(err){
+                console.log('[ERROR]', err);
+            }
+        })
+    });
 }

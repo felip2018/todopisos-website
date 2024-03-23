@@ -56,23 +56,28 @@
         <div class="col-xs-12 col-sm-12 col-md-8">
             Imagenes cargadas
             <hr>
+            <div id="delete-img-alert"></div>
             <div class="row">
                 @foreach($data as $img)
                     <div class="col-xs-12 col-sm-12 col-md-3">
                         <div class="img-container">
                             <div class="row">
                                 <div class="col-9">
-                                    <label>Esta es un titulo de prueba para validar la capacidad del contenedor</label>
+                                    <label>{{$img["name"]}}</label>
                                 </div>
                                 <div class="col-3">
-                                    <button class="btn btn-danger btn-block" title="Eliminar">
+                                    <button class="btn btn-danger btn-block" title="Eliminar" onclick="removeGalleryImage({{$img["galeryImageId"]}},'{{$img["url"]}}')">
                                         <i class="fa fa-trash"></i>
                                     </button>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-12">
-                                    <img src="../{{$img["url"]}}" style="width: 100%"/>
+                                    @if(strpos($img["url"], ".mp4"))
+                                        <video src="../{{$img["url"]}}" style="width: 100%" controls="true"></video>
+                                    @else
+                                        <img src="../{{$img["url"]}}" style="width: 100%"/>
+                                    @endif
                                 </div>
                             </div>
                             <div class="row">

@@ -11,6 +11,7 @@ Use App\Http\Controllers\ServicesController;
 Use App\Http\Controllers\AboutUsController;
 Use App\Http\Controllers\ProductsController;
 Use App\Http\Controllers\QuotationController;
+Use App\Http\Controllers\DocumentsController;
 
 // Clients
 Route::get('clients',           [CustomersController::class, 'getAllCustomers']);
@@ -57,3 +58,8 @@ Route::post('delete-image',             [ImageUploadController::class, 'deleteIm
 Route::post('update-about-data',    [AboutUsController::class, 'updateAboutData']);
 Route::post('collaborator-insert',  [AboutUsController::class, 'insertCollborator']);
 Route::post('collaborator-delete',  [AboutUsController::class, 'deleteCollborator']);
+
+// Documents
+Route::post('save-document', [DocumentsController::class, 'saveDocument']);
+Route::get('get-document-info/{id}', [DocumentsController::class, 'getDocumentInfo']);
+Route::post('send-document-by-email', [DocumentsController::class, 'sendDocumentByEmail']);

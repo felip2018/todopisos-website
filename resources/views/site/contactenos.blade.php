@@ -19,16 +19,16 @@
                         <td><b>Dirección</b></td><td>Calle 174B-47-63 Costado sur del home center</td>
                     </tr>
                     <tr>
-                        <td><b>Cel</b></td><td>3144348273</td>
+                        <td><b>Celular</b></td><td>3144348273</td>
                     </tr>
                     <tr>
-                        <td><b>Tel</b></td><td>5265432</td>
+                        <td><b>Teléfono</b></td><td>5265432</td>
                     </tr>
                 </table>
             </div>
         </div>
     </div>
-    <div class="row section">
+    <div class="row section" style="border:1px solid #dddddd; border-radius: 5px;margin-bottom: 10px">
         <div class="col-12">
             <div class="section-secondary-title">
                 Formulario de contacto

@@ -6,6 +6,7 @@ use App\Models\Gallery;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 
 class ImageUploadController extends Controller
 {
@@ -22,7 +23,7 @@ class ImageUploadController extends Controller
     public static function uploadImage(Request $request) {
         try {
             $params = $request->all();
-            $allowedExtensions = array("jpeg", "jpg", "png");
+            $allowedExtensions = array("jpeg", "jpg", "png", "mp4");
             $image = $_FILES["img"];
             $extension = explode("/",$image["type"])[1];
             if(!in_array($extension, $allowedExtensions)) {
@@ -63,7 +64,33 @@ class ImageUploadController extends Controller
         }
     }
 
-    public static function deleteImage() {
+    public static function deleteImage(Request $request) {
+        try {
+            $params = $request->all();
+            $galeryImageId = $params["galeryImageId"];
+            $url = $params["url"];
 
+            $update = 0;
+            if (File::exists(public_path($url))) {
+                $message = "El archivo si existe";
+                File::delete(public_path($url));
+                DB::beginTransaction();
+                $update = Gallery::where("galeryImageId", $galeryImageId)->update([
+                    "status" => "ELIMINADO"
+                ]);
+                DB::commit();
+            }
+
+            return response()->json([
+                "status" => 200,
+                "response" => $update
+            ], 200);
+
+        } catch (\ErrorException $e) {
+            return response()->json([
+                "status" => 409,
+                "message" => $e->getMessage()
+            ], 409);
+        }
     }
 }

@@ -10,6 +10,7 @@
         <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="{{asset('assets/css/website.css')}}">
+        <link rel="stylesheet" href="{{asset('assets/css/footer.css')}}">
         <link rel="stylesheet" href="{{asset('assets/css/gallery.css')}}">
         <link rel="stylesheet" href="{{asset('assets/css/bootstrap.min.css')}}">
         <link rel="stylesheet" href="{{asset('assets/fontawesome/css/all.css')}}">
@@ -28,18 +29,6 @@
             <div class="container">
                 <div class="row">
                     <div class="col-xs-12 col-md-12">
-                        <!--<div class="navigation-menu">
-                            <table class="table">
-                                <tr>
-                                    <td><a href="/">Inicio</a></td>
-                                    <td><a href="/quienes-somos">Quienes somos</a></td>
-                                    <td><a href="/nuestros-servicios">Nuestros servicios</a></td>
-                                    <td><a href="/contactenos">Contáctenos</a></td>
-                                    <td><a href="/galeria">Galería</a></td>
-                                    <td><a href="/iniciar-sesion"><i class="fas fa-sign-in-alt"></i> Iniciar sesión</a></td>
-                                </tr>
-                            </table>
-                        </div>-->
                         <nav class="navbar navbar-expand-lg navbar-light bg-light">
                             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                               <span class="navbar-toggler-icon"></span>
@@ -72,6 +61,41 @@
                 </div>
 
                 @yield('content')
+
+                <footer>
+                        <div class="row justify-content-center" style="text-align: center">
+                            <div class="col-12">
+                                <p>Todopisos y Cortinas - 2024&#169;</p>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-6">
+                                <div class="row justify-content-center">
+                                    <!--<div class="col-xs-12 col-sm-12 col-md-4">
+                                        <a target="_blank" href="https://www.facebook.com/ceasdance?mibextid=b06tZ0">
+                                            <img src="{{asset('assets/img/Iconos/facebook.png')}}" alt="">
+                                        </a>
+                                        <p>Facebook </p>
+                                    </div>-->
+                                    <div class="col-xs-12 col-sm-12 col-md-4">
+                                        <div class="clickeable">
+                                            <a target="_blank" href="https://www.instagram.com/todopisos06?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==">
+                                                <img src="{{asset('assets/img/Iconos/instagram.png')}}" alt="">
+                                            </a>
+                                            <p>Instagram</p>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-4">
+                                        <div class="clickeable">
+                                            <a target="_blank" href="https://wa.me/3144348273">
+                                                <img src="{{asset('assets/img/Iconos/whatsapp.png')}}" alt="">
+                                            </a>
+                                            <p>Whatsapp</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </footer>
 
             </div>
         </div>
