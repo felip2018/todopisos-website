@@ -5,11 +5,11 @@ use Illuminate\Support\Facades\Route;
 Use App\Http\Controllers\ServicesController;
 Use App\Http\Controllers\UtilsController;
 Use App\Http\Controllers\ProductsController;
-Use App\Http\Controllers\QuotationController;
 Use App\Http\Controllers\CustomersController;
+
 Use App\Models\Gallery;
 Use App\Models\Document;
-
+Use App\Models\ContactForm;
 // ------------------------------------------------ Routes Website
 
 Route::get('/', function () {
@@ -181,5 +181,11 @@ Route::get('/send-document-by-email/{documentId}', function ($documentId) {
     return view('emails.document', [
         "data" => $data
     ]);
-    //\Mail::to('felipegarxon@hotmail.com')->send(new App\Mail\QuotationMail());
+});
+
+Route::get('/app/contact-form', function () {
+   $data = ContactForm::orderBy("created_at", "desc")->get();
+   return view("application.contact-form", [
+       "data" => $data
+   ]);
 });

@@ -12,6 +12,7 @@ Use App\Http\Controllers\AboutUsController;
 Use App\Http\Controllers\ProductsController;
 Use App\Http\Controllers\QuotationController;
 Use App\Http\Controllers\DocumentsController;
+Use App\Http\Controllers\ContactFormController;
 
 // Clients
 Route::get('clients',           [CustomersController::class, 'getAllCustomers']);
@@ -63,3 +64,7 @@ Route::post('collaborator-delete',  [AboutUsController::class, 'deleteCollborato
 Route::post('save-document', [DocumentsController::class, 'saveDocument']);
 Route::get('get-document-info/{id}', [DocumentsController::class, 'getDocumentInfo']);
 Route::post('send-document-by-email', [DocumentsController::class, 'sendDocumentByEmail']);
+
+// Contact Form
+Route::post("save-contact-form", [ContactFormController::class, "save"]);
+Route::post("update-form-status", [ContactFormController::class, "updateStatus"]);

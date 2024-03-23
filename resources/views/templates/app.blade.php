@@ -78,6 +78,11 @@
                 </a>
             </li>
             <li class="nav-item">
+                <a href="/app/contact-form" class="nav-link">
+                    <i class="fas fa-book"></i> <p>Formulario</p>
+                </a>
+            </li>
+            <li class="nav-item">
                 <a href="/app/servicios" class="nav-link">
                     <i class="far fa-image"></i> <p>Servicios</p>
                 </a>
@@ -170,5 +175,6 @@
 <script src="{{ asset('assets/js/galeria/core.js')}}"></script>
 <script src="{{ asset('assets/js/quienes-somos.js')}}"></script>
 <script src="{{ asset('assets/js/quotation.js')}}"></script>
+<script src="{{ asset('assets/js/contact-form.js')}}"></script>
 </body>
 </html>
