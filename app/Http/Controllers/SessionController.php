@@ -34,7 +34,7 @@ class SessionController extends Controller
 								dt.abbreviation as docType,
 								p.name as profile
 								FROM user u
-								INNER JOIN documentType dt ON dt.documentTypeId = u.documentTypeId
+								INNER JOIN documenttype dt ON dt.documentTypeId = u.documentTypeId
 								INNER JOIN profile p ON p.profileId = u.profileId
 								WHERE email = ?
 								AND password = ?", [$user, $pass]);

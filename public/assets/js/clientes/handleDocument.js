@@ -35,17 +35,16 @@ function getDocumentInfo(id) {
                 const bg = type == "Remisión" ? "#48dbfb":"#feca57";
 
                 buttons_f.html(`
-                <div class="row">
-                    <div class="col-12">
-                        <button class="btn btn-info m-2" onclick="printDocument(${idDocument})">
-                            <i class="fa fa-print"></i> Imprimir
-                        </button>
-                        <button class="btn btn-warning m-2">
-                            <i class="fa fa-paper-plane"></i> Enviar
-                        </button>
-                    </div>
-                </div>
-                `);
+                    <div class="row">
+                        <div class="col-12">
+                            <button class="btn btn-info m-2" onclick="printDocument(${idDocument})">
+                                <i class="fa fa-print"></i> Imprimir
+                            </button>
+                            <button class="btn btn-warning m-2" onclick="sendDocument(${idDocument},'${type}')">
+                                <i class="fa fa-envelope"></i> Enviar
+                            </button>
+                        </div>
+                    </div>`);
 
                 doc_h_f.html(`
                     <span class="status-span" style="background-color: ${bg}">${type} No. ${number}</span><br>
@@ -87,6 +86,39 @@ function printDocument(id) {
     window.open(`/app/clientes/ver-detalle-documento-imprimir/${id}`, "_blank");
 }
 
-function sendDocument(id) {
+function sendDocument(id, type) {
+    jQuery('.modal').modal({backdrop: 'static', keyboard: false});
+    jQuery('.modal-title').html(`Enviar ${type} por correo electrónico`)
+    jQuery('.modal-body').html(`<p>¿Desea realizar el envío de la ${type} por correo?</p>`);
+    jQuery('.modal-footer').html(`<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+    <button type="button" class="btn btn-success btn-accept"><i class="fa fa-envelope"></i> Si, enviar</button>`);
 
+    jQuery('.btn-accept').click(function(){
+        jQuery('.modal-body').html(`<div class="justify-content-center">
+            <img src="/assets/img/loader.gif" />
+        </div>`);
+        jQuery('.modal-footer').html(`<p>IDE: ${id}</p>`);
+
+        jQuery.ajax({
+            type: "POST",
+            url: `${HOST}/api/send-document-by-email`,
+            data: {
+                documentId: id,
+            },
+            success: function (res) {
+                jQuery('.modal-body').html(`<div class="justify-content-center">
+                    <div class="alert alert-success">
+                        <p>El documento ha sido enviado correctamente!</p>
+                    </div>
+                </div>`);
+                jQuery('.modal-footer').html(`<button type="button" class="btn btn-success btn-accept" data-dismiss="modal">
+                    <i class="fa fa-check"></i> Aceptar
+                </button>`);
+            },
+            error: function (err) {
+                console.log('[ERROR]', err);
+            }
+        });
+
+    })
 }

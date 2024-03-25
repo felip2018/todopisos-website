@@ -21,9 +21,9 @@ function login(){
 
         jQuery('.alerta').html(alert);
     }else{
-        jQuery('.alerta').html('<div class="justify-content-center">'+
-            '<img src="/assets/img/loader.gif" />'+
-        '</div>');
+        jQuery('.alerta').html(`<div class="justify-content-center">
+            <img src="/assets/img/loader.gif" />
+        </div>`);
 
         jQuery.ajax({
             type: "POST",

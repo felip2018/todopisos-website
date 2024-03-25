@@ -449,7 +449,7 @@ function saveDocument() {
         processData: false,
         success: function(res) {
             console.log('saveDocument.res: ', res);
-            sessionStorage.clear("elements");
+            sessionStorage.removeItem("elements");
             window.open(`/app/clientes/ver-documentos/${userId_f.val()}`, "_self");
         },
         error: function(err){

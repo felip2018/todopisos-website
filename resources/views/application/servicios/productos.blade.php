@@ -36,7 +36,8 @@
     </div>
     <div class="row">
         <div class="col-12">
-            <table class="table table-striped">
+            <div class="table-responsive">
+                <table class="table table-striped">
                 <thead class="thead-light">
                     <th>#</th>
                     <th>Nombre</th>
@@ -48,7 +49,7 @@
                 <tbody>
                     <?php $idx = 1;?>
                     @foreach ($productos as $p)
-                        <?php 
+                        <?php
                             $color = ($p->status == "ACTIVO") ? "#10ac84" : "#ee5253";
                         ?>
                         <tr>
@@ -60,15 +61,15 @@
                                 {{$p->status}}
                             </td>
                             <td>
-                                <a class="btn btn-primary" title="Editar" href="/app/servicios/productos/editar/{{$p->productId}}">
+                                <a class="btn btn-primary m-2" title="Editar" href="/app/servicios/productos/editar/{{$p->productId}}">
                                     <i class="fas fa-edit"></i>
                                 </a>
                                 @if ($p->status == "ACTIVO")
-                                    <button class="btn btn-danger" title="INACTIVAR" onclick="productStatus({{$servicio->productLineId}},{{$p->productId}}, 'INACTIVO')">
+                                    <button class="btn btn-danger m-2" title="INACTIVAR" onclick="productStatus({{$servicio->productLineId}},{{$p->productId}}, 'INACTIVO')">
                                         <i class="fas fa-times"></i>
                                     </button>
                                 @else
-                                    <button class="btn btn-success" title="ACTIVAR" onclick="productStatus({{$servicio->productLineId}},{{$p->productId}}, 'ACTIVO')">
+                                    <button class="btn btn-success m-2" title="ACTIVAR" onclick="productStatus({{$servicio->productLineId}},{{$p->productId}}, 'ACTIVO')">
                                         <i class="fas fa-check"></i>
                                     </button>
                                 @endif
@@ -78,7 +79,8 @@
                     @endforeach
                 </tbody>
             </table>
+            </div>
         </div>
     </div>
-	
+
 @endsection

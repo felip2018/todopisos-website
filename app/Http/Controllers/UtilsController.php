@@ -10,7 +10,7 @@ class UtilsController extends Controller
 {
 
     public static function getAllDocumentTypes() {
-        $sql = "SELECT * FROM documentType";
+        $sql = "SELECT * FROM documenttype";
         $list = DB::select($sql);
         return $list;
     }
